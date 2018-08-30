@@ -1,0 +1,48 @@
+<!DOCTYPE html>  
+  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+<title>demo大全</title>  
+
+<script>  
+!function() {
+	var CW_REM = 7.5
+	var CH = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	var CW = Math.min(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
+	var CH_REM = CH / CW * CW_REM
+	document.documentElement.style.fontSize = (CW / CW_REM) + 'px';	
+}()
+
+function goPage(tag) {
+	// console.log('tag', tag, this)
+	window.location = window.location.origin + window.location.pathname + tag
+}
+</script>  
+
+
+<style>
+ul {
+
+}
+li {
+	font-size: 0.4rem;
+}
+</style>
+
+
+</head>  
+<body>  
+<h6 style="margin: 0;padding:0; font-size:0.5rem;">html5 + js + less demo大全</h6>
+
+<ul>
+	<li onclick="goPage('横向排列滚动试图')">横向排列滚动试图 \ ul 、li </li>
+
+	<li onclick="goPage('条纹滚动进度条')">条纹滚动进度条</li>
+
+	<li onclick="goPage('超框文本左右滚动')">超框文本左右滚动 \ 动态添加css样式</li>
+</ul>
+
+</body>  
+</html> 

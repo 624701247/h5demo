@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>喜宝人气王争夺赛</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    
+    <script>
+    var cw_rem = 7.5
+    var ch_rem = 12.06
+    var ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+    var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+    document.documentElement.style.fontSize = (cw / cw_rem) + 'px'; //宽适配
+    </script>
+    <style>
+    .ktest {
+        margin-left: 1rem;
+        margin-top: 1rem;
+        width: 4rem;
+        height: 1rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .ktest span {
+        display: block;
+        height: 1rem;
+        line-height: 1rem;
+        font-size: 0.5rem;
+        margin: 0;
+        padding: 0;
+
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+
+        animation: marquee 5s linear infinite;
+        text-indent: 1rem;
+    }
+
+
+    @keyframes marquee {
+        0% {
+            left: 0;
+        }
+        50% {
+            left: -1rem;
+        }
+        100% {
+            left: 0rem;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.history.back(-1)">返回demo大全</button>
+
+    <div id="ktest" class="ktest">
+        <span id="spp">123456789abcdefghijklmn~end</span>
+    </div>
+
+    <script>
+        // kone point:  动态添加 css 样式
+        function insertCss(cssStr) {
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = cssStr;
+            document.getElementsByTagName('head')[0].appendChild(style);
+        }
+
+    	var el_ktest = document.getElementById('ktest')
+    	var el_d = document.getElementById('spp')
+    	el_d.style.width = el_d.clientWidth + 'px'
+    	var dynamicValue = "33.3";
+    	var ff = `
+		@keyframes marquee {
+		    0% {
+		        left: 0;
+		    }
+		    50% {
+		        left:-` + (el_d.clientWidth - el_ktest.clientWidth + 20) + `px;
+		    }
+		    100% {
+		        left:0;
+		    }
+		}
+		`
+	    insertCss(ff)
+
+    </script>
+</body>
+
+</html>

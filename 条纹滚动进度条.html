@@ -1,0 +1,81 @@
+<!DOCTYPE html>  
+  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+<title>条纹滚动进度条</title>  
+
+<script>  
+!function() {
+    var CW_REM = 7.5
+    var CH = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    var CW = Math.min(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
+    var CH_REM = CH / CW * CW_REM
+    document.documentElement.style.fontSize = (CW / CW_REM) + 'px';
+}()
+</script>  
+
+
+<style>
+    main {
+        width: 100%;
+        padding: 80px 0px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around; 
+    }
+    .progress-outer {
+        width: 60%; height: 12px;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative; 
+    }    
+    .progress-enter {  
+        height: inherit;
+        background: rgba(180, 160, 120, .2); 
+    }
+    .progress-bg {
+        width: 60%; 
+        height: inherit;
+        border-radius: 6px; 
+        background: repeating-linear-gradient(-45deg, #D9CFBB  25%, #C3B393 0, #C3B393 50%,
+                        #D9CFBB 0, #D9CFBB 75%, #C3B393 0);
+        background-size: 16px 16px;
+        animation: panoramic 15s linear infinite;
+    }
+    @keyframes panoramic{
+        to {
+            background-position: 200% 0;
+        }
+    }
+
+</style>
+
+
+</head>  
+<body>  
+    <button onclick="window.history.back(-1)">返回demo大全</button>
+
+    <main>
+        <div class="progress-outer">  <!--更好的扩展-->
+            <div class="progress-enter">
+            <div id="progressBg" class="progress-bg"></div>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        var el_pro = document.querySelector('#progressBg')
+        var count = 0
+        var timer = setInterval(function() {
+            count++
+            el_pro.style.width = count + '%'
+            if(count == 100) {
+                clearInterval(timer)
+            }
+        }, 40)
+    </script>
+</body>  
+</html> 
