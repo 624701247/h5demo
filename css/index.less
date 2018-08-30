@@ -1,0 +1,52 @@
+/*less 语法*/ 
+
+/* 循环 *********************/
+// 循环生成样式
+.generate-columns(@n: 5, @i: 1) when (@i =< @n) {
+  .column-@{i} {
+    width: (@i * 100% / @n);
+  }
+  .generate-columns(@n, (@i + 1));
+}
+.generate-columns(4);
+
+
+/* 拼接字符串 *********************/
+.page {
+	@images: "../img/";
+	@bgImages: "@{images}bg/";
+	background: url("@{bgImages}white-sand.png");
+
+}
+
+/* after before ****************/ 
+.afbf {
+	color:red;
+	&:before {
+		content: "bef";
+	}
+	&:after {
+		content: "af";
+	}
+	&:hover {
+		 border: 1px solid red;
+	}
+}
+
+
+/* 函数 ****************/ 
+.getImgSize(@url: '../image/logo.png') { // : 符号后面是函数参数默认值 
+    @size: image-size(@url);
+	@wid: image-width(@url);
+	@hei: image-height(@url);
+	width: 1rem * @wid / 100; //默认px单位，这里将其转化未 rem 单位
+	height: @hei;
+	background-size: @size;
+	@clr:red;
+}
+.caller {
+	.getImgSize('../image/logo.png');
+	color:@clr; //该参数由函数 getImgSize 返回
+}
+
+
