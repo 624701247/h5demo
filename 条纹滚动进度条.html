@@ -50,6 +50,32 @@
         }
     }
 
+
+    .cornet-cut {
+        margin-top: .5rem;
+        width: 3rem;
+        height: 5rem;
+        font-size: 0.7rem;
+        /*background: #58a;*/
+        
+        /*
+        kone point : 利用渐变切角
+        transparent: 透明色
+        linear-gradient(倾斜角度, 颜色1 颜色1沿渐变轴开始渐变的坐标{设置0则为延用上一色块的值}, ...);
+        */
+        background: linear-gradient(-45deg, transparent 0.5rem, #58a 0);
+    }
+
+    .bag {
+        margin-top: .5rem;
+        width: 2rem;
+        height:3rem;
+
+        /*kone point : 多种颜色渐变 并 重复*/
+        background: linear-gradient(0deg, red 0.3rem, green 0, green 0.6rem, blue 0);
+        background-size: 100% 0.9rem;
+    }
+
 </style>
 
 
@@ -58,11 +84,17 @@
     <button onclick="window.history.back(-1)">返回demo大全</button>
 
     <main>
-        <div class="progress-outer">  <!--更好的扩展-->
+        <!-- 条纹进度条 -->
+        <div class="progress-outer">
             <div class="progress-enter">
             <div id="progressBg" class="progress-bg"></div>
             </div>
         </div>
+
+        <!-- 切角 -->
+        <div class="cornet-cut">观尔乃插标卖首</div>
+
+        <div class="bag"></div>
     </main>
 
 

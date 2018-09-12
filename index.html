@@ -29,20 +29,52 @@ ul {
 li {
 	font-size: 0.4rem;
 }
+
 </style>
 
 
 </head>  
-<body>  
+<body>
 <h6 style="margin: 0;padding:0; font-size:0.5rem;">html5 + js + less demo大全</h6>
 
-<ul>
+<ul id="demoList">
 	<li onclick="goPage('横向排列滚动试图')">横向排列滚动试图 \ ul 、li </li>
 
-	<li onclick="goPage('条纹滚动进度条')">条纹滚动进度条</li>
+	<li onclick="goPage('条纹滚动进度条')">条纹滚动进度条 \ 颜色渐变</li>
 
 	<li onclick="goPage('超框文本左右滚动')">超框文本左右滚动 \ 动态添加css样式</li>
+
 </ul>
+
+<script>
+	/* kone point : 获取元素*/
+	var el_list = document.querySelector('#demoList') //推荐写法
+	// // var el_list = document.getElementById('demoList')
+	var el_itemAry = el_list.querySelectorAll('li')
+	console.log('list', el_list)
+	console.log('itemAry', el_itemAry)
+
+	/* kone point : 判断是否支持某个样式*/ 
+	function testIsSupport(property, value) {
+		var el = document.documentElement
+
+		if(property in el.style) {
+		}
+		else {
+			console.log('“不”支持属性', property)	
+			return 
+		}
+
+		el.style[property] = value;
+		if (el.style[property] == value) {
+			console.log('支持属性及其值', property, value)
+		}
+		else {
+			console.log('支持属性', property, '但不支持设置值', value)	
+		}
+	}
+	testIsSupport('display', 'flex')
+</script>
 
 </body>  
 </html> 

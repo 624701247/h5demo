@@ -19,9 +19,12 @@
 
 }
 
-/* after before ****************/ 
-.afbf {
+/* & 操作符号 after before ****************/ 
+.box {
 	color:red;
+	&-active {   //转化成 .box-active 
+		opacity: 1;
+	}
 	&:before {
 		content: "bef";
 	}
@@ -34,19 +37,32 @@
 }
 
 
-/* 函数 ****************/ 
+/* 函数 && less内置的获取图片信息函数 ****************/ 
 .getImgSize(@url: '../image/logo.png') { // : 符号后面是函数参数默认值 
-    @size: image-size(@url);
-	@wid: image-width(@url);
-	@hei: image-height(@url);
+    @size: image-size(@url);  //图片尺寸
+	@wid: image-width(@url);  //图片宽度
+	@hei: image-height(@url); //图片高度
+	@base64: data-uri(@url);  //转化成 url(data:image/png;base64,xxxxxxx)  
+
+	background-image: @base64;
 	width: 1rem * @wid / 100; //默认px单位，这里将其转化未 rem 单位
 	height: @hei;
 	background-size: @size;
 	@clr:red;
+
 }
 .caller {
 	.getImgSize('../image/logo.png');
 	color:@clr; //该参数由函数 getImgSize 返回
+}
+
+/* 数组 ****************/ 
+@list: "yellow", "#131313", "red";
+@len: length(@list); //数组长度
+@value: extract(@list, 2); //获取数组值，key从 1 开始。
+.array {
+	height: 10px * @len;	
+	color: color(@value);
 }
 
 
