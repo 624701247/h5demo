@@ -44,6 +44,7 @@ li {
 
 	<li onclick="goPage('超框文本左右滚动')">超框文本左右滚动 \ 动态添加css样式</li>
 
+	<li onclick="goPage('index-fly')">接金币(原生写法</li>
 </ul>
 
 <script>
@@ -58,8 +59,7 @@ li {
 	function testIsSupport(property, value) {
 		var el = document.documentElement
 
-		if(property in el.style) {
-		}
+		if(property in el.style) {}
 		else {
 			console.log('“不”支持属性', property)	
 			return 

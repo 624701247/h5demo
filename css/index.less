@@ -5,6 +5,15 @@
 .generate-columns(@n: 5, @i: 1) when (@i =< @n) {
   .column-@{i} {
     width: (@i * 100% / @n);
+    animation: "columnFly@{i}" 1s linear infinite;
+    @keyframes "columnFly@{i}" {
+	    0% {
+	        opacity: 0;
+	    }
+	    100% {
+	        opacity: 1;
+	    }
+	}
   }
   .generate-columns(@n, (@i + 1));
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>  
+  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+<title>接金币(原生写法</title>  
+
+<link rel="stylesheet" type="text/css" href="css/fly.css?3" />
+
+<script> 
+!function() {
+	var CW_REM = 7.5
+	var CH = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	var CW = Math.min(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
+	var CH_REM = CH / CW * CW_REM
+	document.documentElement.style.fontSize = (CW / CW_REM) + 'px';	
+}()
+</script>  
+
+</head>  
+<body>
+	<div class="scene scene-game">
+		<div id="goldCont"></div>
+
+		<div id="carCont">
+			<div id="car"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/carry.js"></script>
+	<script type="text/javascript" src="js/fly.js"></script>
+</body>  
+</html> 
