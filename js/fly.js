@@ -1,6 +1,5 @@
 var carry;
 
-
 var bodyHei = document.body.clientHeight;
 
 // 

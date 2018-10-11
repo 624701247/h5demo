@@ -1,0 +1,174 @@
+<!DOCTYPE html>  
+  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+<title>滚动列表</title>  
+
+<script>  
+!function() {
+	var CW_REM = 7.5
+	var CH = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	var CW = Math.min(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
+	var CH_REM = CH / CW * CW_REM
+	document.documentElement.style.fontSize = (CW / CW_REM) + 'px';	
+}()
+
+</script>  
+
+
+<style>
+/*  自定义 滚动条*/
+::-webkit-scrollbar { 
+    width: 0.16rem;
+    height: 8px;
+}
+::-webkit-scrollbar-track { /*滚动条底框*/
+    border-radius: 0.08rem;  
+    background:rgba(0,0,0,0.2);
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+}
+::-webkit-scrollbar-thumb { /*滚动条滑块*/
+    border-radius: 0.08rem;  
+    background: #30B7AF;        
+
+    /*kone point : 
+    需求：试图使 滚动条滑块宽度 大于 滚动条底框
+    如下设置width是无效的
+    解决方案： 滚动的滚动条底框设置为透明的，然后再加个标签模拟出底框的样式。
+    */
+    width:0.5rem;  
+}
+::-webkit-scrollbar-thumb:window-inactive { /*window-inactive ： 在浏览器失去焦点的情况*/
+    background: rgba(0,0,0,0.4);
+}
+/*end of */
+
+
+/**/
+.warp-d {
+    margin-top: 1rem;
+    width: 7rem;
+    height: 3rem;
+    background: rgba(0,0,0,0.1);
+
+    overflow-x:hidden; 
+    overflow-y: auto;
+}
+.warp-d::-webkit-scrollbar { 
+    width: 0.26rem;
+}
+.warp-q, ul {
+    width:100%;
+    margin:0;
+    padding:0;
+}
+.warp-q, li {
+    font-size: 0.8rem;
+}
+
+
+/**/
+.warp-q {
+    margin-top: 1rem;
+    width: 7rem;
+    height: 2rem;
+    background: red;
+
+    overflow-x:scroll; 
+    overflow-y: hidden;
+}
+.warp-q > ul {
+    height:100%;
+    width: 12rem;
+    margin:0;
+    padding:0;
+}
+.warp-q > ul > li  {
+    list-style:none;   /* kone point: 去掉前面的点*/
+    float:left; /*默认竖向布局，此句改成横向*/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+}
+.item-q {
+    width:1.5rem;
+    height:1.5rem;
+    background: greenyellow;
+    margin-right: 0.4rem;
+}
+
+
+/**/
+.warp-a {
+    margin-top: 1rem;
+    width: 7rem;
+    height: 2rem;
+    background: blue;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap; /*文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。*/
+    border: 3px black solid; 
+}
+.item-a {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: 0.2rem;
+    background: orange;
+    display: inline-block;
+}
+</style>
+</head>  
+<body>  
+<button onclick="window.history.back(-1)">返回demo大全</button>
+
+<!-- 滚动列表 -->
+<div class="warp-d">
+    <ul>
+        <li>11111</li>
+        <li>22222</li>
+        <li>33333</li>
+        <li>44444</li>
+        <li>55555</li>
+        <li>66666</li>
+    </ul>
+</div>
+
+
+
+<!-- 横向滚动列表 idea 1 ： 找不到自适配滚动内容宽度的方法 -->
+<div class="warp-q">
+    <ul>
+        <li><div class="item-q"></div></li>
+        <li><div class="item-q"></div></li>
+
+        <li><div class="item-q"></div></li>
+        <li><div class="item-q"></div></li>
+
+        <li><div class="item-q"></div></li>
+        <li><div class="item-q"></div></li>
+    </ul>
+</div>
+
+
+<!-- 横向滚动列表 idea2 -->
+<div class="warp-a">
+    <div class="item-a">1</div>
+    <div class="item-a">2</div>
+
+    <div class="item-a">3</div>
+    <div class="item-a">4</div>
+
+    <div class="item-a">5</div>
+    <div class="item-a">6</div>
+    <div class="item-a">7</div>
+    <div class="item-a">8</div>
+    <div class="item-a">9</div>
+    <div class="item-a">10</div>
+</div>
+
+</body>  
+</html> 
