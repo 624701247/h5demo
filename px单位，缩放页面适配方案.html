@@ -1,0 +1,203 @@
+<!DOCTYPE html>  
+  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+<title>px单位，缩放页面适配方案</title>  
+
+<script>  
+function insertCss(cssStr) {
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = cssStr;
+    document.getElementsByTagName('head')[0].appendChild(style);
+}
+var scaleFit = {}
+!function(sfit) {
+	var clientWid = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+	var clientHei = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+
+	//宽适配：使 scaleFit-wid 类及其子标签的一个屏幕宽度为designWid(px)
+	sfit.initFitWid = function(designWid, claName) {
+		claName = claName || 'scaleFit-wid'
+		var rr = clientWid / designWid
+		var coverHei = clientHei / rr
+
+		var str = '.' + claName + ' {'
+		str += 'position: fixed;'
+		str += 'top:0;'
+
+		/*
+		使该标签水平居中于父标签
+		kone point: 假如改值计算出来有小数部分，则居中效果会有一点点偏差
+		str += 'left:50%;'
+		str += 'margin-left: ' + designWid / -2 + 'px;' 
+		*/
+
+		str += 'left:0;'
+
+		// 设置宽度并缩放，使其铺满整个屏幕宽度
+		str += 'width:' + designWid + 'px;'
+		str += 'height:' + coverHei + 'px;'
+		str += 'transform-origin: left top 0;'
+		str += 'transform: scale(' + rr + ');'
+		str += 'webkit-transform-origin: left top 0;'
+		str += 'webkit-transform: scale(' + rr + ');'
+		str += '}'
+		insertCss(str)
+	}
+
+	//高适配: 同理宽适配
+	sfit.initFitHei = function(designHei, claName) {
+		claName = claName || 'scaleFit-hei'
+		var rr = clientHei / designHei
+		var coverWid = clientWid / rr
+		var str = '.' + claName + ' {'
+		str += 'position: fixed;'
+
+		str += 'top: 0;'
+
+		str += 'width:' + coverWid + 'px;'
+		str += 'height:' + designHei + 'px;'
+		str += 'transform-origin: left top 0;'
+		str += 'transform: scale(' + rr + ');'
+		str += 'webkit-transform-origin: left top 0;'
+		str += 'webkit-transform: scale(' + rr + ');'
+		str += '}'
+		insertCss(str)
+	}
+
+	// 对话框模式，保证对话框内容能全部显示出来
+	// 设计稿比浏览器尺寸更狭长用高适配，反正用宽适配
+	sfit.initFitTotal = function(designWid, designHei, claName) {
+		claName = claName || 'scaleFit-total'
+ 		var designRR = designWid / designHei
+ 		var clientRR = clientWid / clientHei
+ 		if(designRR < clientRR) {
+ 			this.initFitHei(designHei, claName)
+ 		}
+ 		else {
+			this.initFitWid(designWid, claName)
+ 		}
+	}	
+}(scaleFit)
+
+scaleFit.initFitWid(751)
+scaleFit.initFitHei(1206)
+scaleFit.initFitTotal(750, 1206)
+
+</script>  
+
+<style>
+html, body {
+	width: 100%;
+	height:100%; 
+	padding: 0;
+	margin:0;
+}
+
+h5 {
+    padding: 0;
+    margin: 0;
+	font-size: 41px;
+	color:red;
+}
+.page1 {
+	background: #666666;
+	
+}	
+.page1 .bg {
+	font-size: 30px;
+	width: 440px;
+    height: 80px;
+    background: yellow;
+    position: absolute;
+    left: 50%;
+    margin-left: -220px;
+}
+
+.page2 {
+	width:50%;
+    background: rgba(255,0,0,0.6);
+}
+.page2 .bgt {
+	font-size: 30px;
+	width: 50%;
+    height: 80px;
+    line-height: 80px;
+    background: yellow;
+    position: absolute;
+    margin: auto;
+    left:0;
+    right: 0;
+    top:0;
+}
+.page2 .bgb {
+	font-size: 30px;
+	width: 50%;
+    height: 80px;
+    line-height: 80px;
+    background: yellow;
+    position: absolute;
+    margin: auto;
+    left:0;
+    right: 0;
+    bottom:0;
+}
+
+.dlgMask {
+	background: rgba(0,0,0,0.7);
+
+}
+.dlg {
+	position: absolute;
+	margin: auto;
+	left:0;
+	right:0;
+	top:0;
+	bottom: 0;
+	width:600px; height:1111px; background: #d0aef5;
+	border-radius: 10px;
+}
+</style>
+
+
+</head>  
+<body>
+	<!--  -->
+	<div class="scaleFit-wid page1">
+		<div class="bg">宽适配：使 scaleFit-wid 类及其子标签的一个屏幕宽度为designWid(px)</div>
+		<h5>12345 </h5>
+		<h5 style="float: right;">54321</h5>
+	</div>
+
+	<!--  -->
+	<div class="scaleFit-hei page2">
+		<div class="bgt">高适配</div>
+		<div class="bgb">666</div>
+		<button id="testBtn" style="font-size: 40px; margin-top:300px;">打开对话框</button>
+	</div>
+
+	<!--  -->
+	<div id="dlgMask" class="scaleFit-total dlgMask">
+		<div id="testDlg" class="dlg"  data-ratio="1:1"></div>
+	</div>
+
+	<script>
+		function closeDlg() {
+			document.getElementById('dlgMask').style.display = 'none'
+			document.getElementById('testDlg').style.display = 'none'
+		}
+
+		document.getElementById('dlgMask').onclick = closeDlg	
+		closeDlg()
+
+		document.getElementById('testBtn').onclick = function() {
+			document.getElementById('dlgMask').style.display = 'block'
+			document.getElementById('testDlg').style.display = 'block'
+		}
+	</script>
+
+</body>  
+</html> 
