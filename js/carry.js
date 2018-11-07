@@ -88,6 +88,23 @@ carry = carry || {};
         var num = str.replace(/[^0-9]/ig, ""); 
         return parseInt(num)
     }
+
+    // 指定时间与当前时间比较
+    // return : true 早于或等于当前时间； false 晚于当前时间
+    utils.compareDate = function(year, mon, day, hour, min, sec) {
+        day = day || 1
+        hour = hour || 0 
+        min = min || 0
+        sec = sec || 0
+        var destDate = new Date(year, mon - 1, day, hour, min, sec)
+        var curDate = new Date()
+        if(destDate <= curDate) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
 }(carry)
 
 

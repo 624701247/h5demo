@@ -9,8 +9,8 @@
 <script>  
 !function() {
     var CW_REM = 7.5
-    var CH = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-    var CW = Math.min(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
+    var CH = document.documentElement.clientHeight || document.body.clientHeight;
+    var CW = Math.min(document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
     var CH_REM = CH / CW * CW_REM
     document.documentElement.style.fontSize = (CW / CW_REM) + 'px';
 }()

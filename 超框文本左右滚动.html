@@ -14,8 +14,8 @@
     <script>
     var cw_rem = 7.5
     var ch_rem = 12.06
-    var ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-    var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+    var ch = document.documentElement.clientHeight || document.body.clientHeight
+    var cw = document.documentElement.clientWidth || document.body.clientWidth
     document.documentElement.style.fontSize = (cw / cw_rem) + 'px'; //宽适配
     </script>
     <style>

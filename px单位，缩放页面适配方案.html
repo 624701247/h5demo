@@ -15,8 +15,8 @@ function insertCss(cssStr) {
 }
 var scaleFit = {}
 !function(sfit) {
-	var clientWid = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-	var clientHei = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+	var clientWid = document.documentElement.clientWidth || document.body.clientWidth
+	var clientHei = document.documentElement.clientHeight || document.body.clientHeight
 
 	//宽适配：使 scaleFit-wid 类及其子标签的一个屏幕宽度为designWid(px)
 	sfit.initFitWid = function(designWid, claName) {
