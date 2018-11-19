@@ -1,1 +1,43 @@
-body,html{-ms-touch-action:none;background:#fff!important;padding:0;border:0;margin:0;height:100%;background-repeat:no-repeat;background-size:100% 100%;font-family:"Microsoft YaHei"!important;font-style:normal}#carCont{position:fixed;bottom:0;width:100%;height:40%;background:rgba(0,0,0,.4)}#carCont #car{position:absolute;bottom:.2rem;background-image:url(../image/car.png?222);background-size:100% 100%;background-repeat:no-repeat;width:2.64rem;height:2.52rem}#goldCont{width:100%;height:100%;position:fixed}#goldCont .gold{background-image:url(../image/drop_g1.png?222);background-size:100% 100%;background-repeat:no-repeat;width:.92rem;height:.93rem;position:absolute}
+html,
+body {
+  -ms-touch-action: none;
+  background: #ffffff!important;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-family: "Microsoft YaHei" ! important;
+  font-style: normal;
+}
+#carCont {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  background: rgba(0, 0, 0, 0.4);
+}
+#carCont #car {
+  position: absolute;
+  bottom: 0.2rem;
+  background-image: url("../image/car.png?222");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 2.64rem;
+  height: 2.52rem;
+}
+#goldCont {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+#goldCont .gold {
+  background-image: url("../image/drop_g1.png?222");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 0.92rem;
+  height: 0.93rem;
+  position: absolute;
+}
+/*# sourceMappingURL=fly.css.map */
