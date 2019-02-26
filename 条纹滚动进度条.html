@@ -76,6 +76,27 @@
         background-size: 100% 0.9rem;
     }
 
+
+    .box {
+        width:200px;
+        height: 200px;
+
+        
+        background: linear-gradient(red, green); 
+
+        background: linear-gradient(to left, red, green); 
+
+        background: linear-gradient(to right, red 50px, green);
+    }
+
+    /**/
+    .wear {
+        width:200px;
+        height:200px;
+        background: red;
+
+        -webkit-mask: -webkit-linear-gradient(top, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
+    }
 </style>
 
 
@@ -84,6 +105,10 @@
     <button onclick="window.history.back(-1)">返回demo大全</button>
 
     <main>
+        <!-- 普通渐变 -->
+        <div class="box"></div>
+
+
         <!-- 条纹进度条 -->
         <div class="progress-outer">
             <div class="progress-enter">
@@ -94,7 +119,12 @@
         <!-- 切角 -->
         <div class="cornet-cut">观尔乃插标卖首</div>
 
+        <!-- 三色纸 -->
         <div class="bag"></div>
+
+
+        <!-- 透明度渐变遮罩 -->
+        <div class="wear"></div>
     </main>
 
 
