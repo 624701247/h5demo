@@ -8,14 +8,31 @@
 <title>demo大全</title>  
 
 <script>  
+/* 初始化rem宽高适配 */ 
 !function() {
-	var CW_REM = 7.5
-	var CH = document.documentElement.clientHeight || document.body.clientHeight;
-	var CW = Math.min(document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
-	var CH_REM = CH / CW * CW_REM
-	document.documentElement.style.fontSize = (CW / CW_REM) + 'px';	
+	var initRem = function() {
+		// 设计稿宽高 / 100
+		var cw_rem = 7.5 
+		var ch_rem = 12.06 
+
+		var ch = document.documentElement.clientHeight || document.body.clientHeight
+		var cw = document.documentElement.clientWidth  || document.body.clientWidth
+		// cw = Math.min(cw, ch * 0.6)  //页面内容居中，宽度最多不能大于高度的百分之几，超出的部分可以用黑背景处理
+		console.log('client size', cw, ch)
+
+		document.documentElement.style.fontSize = (cw / cw_rem) + 'px'; //宽适配
+		// document.documentElement.style.fontSize = (ch / ch_rem) + 'px'; //高适配    
+	}
+
+	initRem()
+	window.addEventListener('resize', function() {
+		initRem()
+	})
 }()
 
+
+
+// 
 function goPage(tag) {
 	// console.log('tag', tag, this)
 	window.location = window.location.origin + window.location.pathname + tag + '.html'
@@ -24,7 +41,24 @@ function goPage(tag) {
 
 
 <style>
-ul {}
+html, body {
+	width:100%;
+	height: 100%;
+	background: #666;
+	margin:0;
+}
+.page {
+	width:7.5rem;
+	min-height:100%;
+	margin: auto;	
+	position: relative;
+	background: #ffffff;
+}
+
+ul {
+	margin:0;
+	margin-top:0.4rem;
+}
 li {
 	font-size: 0.4rem;
 	line-height: 120%;
@@ -36,46 +70,50 @@ li {
 
 
 
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.media.js"></script>
-<script type="text/javascript" src="js/pdfobject.js"></script>
+<script type="text/javascript" src="public/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="public/jquery.media.js"></script>
+<script type="text/javascript" src="public/pdfobject.js"></script>
 
 </head>  
 <body>
-<h6 style="margin: 0;padding:0; font-size:0.5rem;">html5 + js + less demo大全</h6>
 
-<ul id="demoList">
-	<li onclick="goPage('滚动列表')">滚动列表&自定义滚动条 \ ul 、li </li>
+<div class="page">
+	<h6 style="margin: 0;padding:0; font-size:0.5rem;">html5 + js + less demo大全</h6>
 
-	<li onclick="goPage('条纹滚动进度条')">条纹滚动进度条 \ 颜色渐变、透明度渐变</li>
+	<ul id="demoList">
+		<li onclick="goPage('滚动列表')">滚动列表&自定义滚动条 \ ul 、li </li>
 
-	<li onclick="goPage('超框文本左右滚动')">超框文本左右滚动 \ 动态添加css样式</li>
+		<li onclick="goPage('条纹滚动进度条')">条纹滚动进度条 \ 颜色渐变、透明度渐变</li>
 
-	<li onclick="goPage('index-fly')">接金币(原生写法</li>
+		<li onclick="goPage('超框文本左右滚动')">超框文本左右滚动 \ 动态添加css样式</li>
 
-	<li onclick="goPage('px单位，缩放页面适配方案')">px单位，缩放页面适配方案</li>
+		<li onclick="goPage('index-fly')">接金币(原生写法</li>
 
-	<li onclick="goPage('盒模型')">盒模型、margin-top百分比相对于啥、边距重叠</li>
+		<li onclick="goPage('px单位，缩放页面适配方案')">px单位，缩放页面适配方案</li>
 
-	<br/>
+		<li onclick="goPage('盒模型')">盒模型、margin-top百分比相对于啥、边距重叠</li>
 
-	<li><a href="https://github.com/624701247/sarea">3级联动地区选择器 \ sarea</a></li>
+		
 
-	<li><a href="https://github.com/624701247/kaye">vue学习demo项目 \ kaye</a></li>
+		<li><a href="https://github.com/624701247/sarea">3级联动地区选择器 \ sarea</a></li>
 
-	<li><a href="https://github.com/624701247/tsxx">react学习demo项目 \ react + ts = tsx</a></li>
+		<li><a href="https://github.com/624701247/kaye">vue学习demo项目 \ kaye</a></li>
 
-	<li><a href="https://github.com/624701247/express-js-ad">modejs-express搭建服务器demo项目</a></li>
+		<li><a href="https://github.com/624701247/tsxx">react学习demo项目 \ react + ts = tsx</a></li>
 
-	<li><a href="https://github.com/624701247/md2html">mardown文档解析为html预览 \ editor.md</a></li>
+		<li><a href="https://github.com/624701247/express-js-ad">modejs-express搭建服务器demo项目</a></li>
+
+		<li><a href="https://github.com/624701247/md2html">mardown文档解析为html预览 \ editor.md</a></li>
 
 
 
-	<li><a onclick="goPage('canvas-nest')">canvas-nest炫酷背景</a></li>
+		<li><a onclick="goPage('canvas-nest')">canvas-nest炫酷背景</a></li>
 
-	<li><a onclick="goPage('pdf')">html5预览pdf</a></li>
-	
-</ul>
+		<li><a onclick="goPage('pdf')">html5预览pdf</a></li>
+		
+	</ul>
+
+</div>
 
 
 <script>

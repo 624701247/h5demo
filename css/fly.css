@@ -1,16 +1,24 @@
 html,
 body {
   -ms-touch-action: none;
-  background: #ffffff!important;
+  background: #000000;
   padding: 0;
   border: 0;
   margin: 0;
+  width:100%;
   height: 100%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   font-family: "Microsoft YaHei" ! important;
   font-style: normal;
 }
+.scene {
+  background: #ffffff;
+  width:7.5rem;
+  height: 100%;
+  margin: auto;
+}
+
 #carCont {
   position: fixed;
   bottom: 0;
