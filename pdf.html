@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+	<meta charset="UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<title>PDFH5</title>
+
+
+
+	<link type="image/x-icon" rel="shortcut icon" href="images/logo.jpg">
+	<!-- <link rel="stylesheet" href="css/style.css" /> -->
+	<link rel="stylesheet" href="http://www.gjtool.cn/pdfh5/css/pdfh5.css" />
+	<style>
+		.pdfjs {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background: #fff;
+			position: relative;
+		}
+	</style>
+</head>
+ 
+<body>
+	<button id="pdfViewBtn">打开pdf预览</button>
+
+	<div id="pdfjs" class="pdfjs"></div>
+	
+	<script src="http://www.gjtool.cn/pdfh5/js/pdf.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://www.gjtool.cn/pdfh5/js/pdf.worker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://www.gjtool.cn/pdfh5/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://www.gjtool.cn/pdfh5/js//pdfh5.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var url = "access-phpmyadmin-remotely.pdf"
+		var pdfh5 = new Pdfh5('.pdfjs', {
+			pdfurl: url
+		});
+		//监听当前加载的pdf页数,currentPageDom当前加载的pdf的dom,currentNum当前加载的pdf页数,
+		pdfh5.on("renderPages",function(currentPageDom){
+			console.log(this.currentNum)
+			console.log(pdfh5.currentNum)
+		})
+
+		document.getElementById('pdfjs').style.display = 'none'
+		document.getElementById('pdfViewBtn').onclick = function() {
+			// console.log('sfsdf')
+			document.getElementById('pdfjs').style.display = ''
+		}
+	</script>
+</body>
+ 
+
+</html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>  
   
-<html lang="en">  
+<html lang="en">
 <head>  
 <meta charset="utf-8" />  
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
@@ -18,7 +18,7 @@
 
 function goPage(tag) {
 	// console.log('tag', tag, this)
-	window.location = window.location.origin + window.location.pathname + tag
+	window.location = window.location.origin + window.location.pathname + tag + '.html'
 }
 </script>  
 
@@ -29,10 +29,16 @@ li {
 	font-size: 0.4rem;
 	line-height: 120%;
 	height:1.2rem;
+	cursor:pointer; /*鼠标悬停变小手*/
 }
 
 </style>
 
+
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.media.js"></script>
+<script type="text/javascript" src="js/pdfobject.js"></script>
 
 </head>  
 <body>
@@ -62,7 +68,15 @@ li {
 	<li><a href="https://github.com/624701247/express-js-ad">modejs-express搭建服务器demo项目</a></li>
 
 	<li><a href="https://github.com/624701247/md2html">mardown文档解析为html预览 \ editor.md</a></li>
+
+
+
+	<li><a onclick="goPage('canvas-nest')">canvas-nest炫酷背景</a></li>
+
+	<li><a onclick="goPage('pdf')">html5预览pdf</a></li>
+	
 </ul>
+
 
 <script>
 	/* kone point : 获取元素*/
