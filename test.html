@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+	<meta charset="UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<title>test</title>
+	<style>
+		#box {
+			width: 100px;
+			height: 100px;
+			background: red;
+			animation: anit 3s linear infinite;
+			opacity: 1;
+		}
+	</style>
+	<script type="text/javascript">
+				function ontapAdd() {
+				alert('s')
+		}
+	</script>
+
+	<script src="js/test.js"></script>
+</head>
+ 
+<body>
+	<div id="cont">
+		<div id="box-fff"></div>
+		<div id="box" class="box"></div>
+	</div>
+
+	<button onclick="ontapAdd()">增加</button>
+	<button>删除</button>
+	<button>修改</button>
+	<button>查询</button>
+
+<script type="text/javascript">
+
+
+	// 
+	const insertCss = (cssStr)=> {
+		var style = document.createElement('style');
+		style.type = 'text/css';
+		style.innerHTML = cssStr;
+		document.getElementsByTagName('head')[0].appendChild(style);
+	}
+
+	// 
+	const delRule = (name)=> {
+	    var ss = document.styleSheets;
+	    for (var i = 0; i < ss.length; ++i) {
+	      const sheet = ss[i];
+	      for(var jj = 0; jj < sheet.cssRules.length; jj++) {
+	      	const rule = sheet.cssRules[jj]
+	      	if (rule && rule.name === name) {
+		        sheet.deleteRule(jj)
+		        return sheet
+		      }
+	      }
+	    }
+	    return null;
+	  }
+
+	// 
+	const addRule = (sheet, str)=> {
+		sheet.insertRule(str, sheet.cssRules.length)
+	}
+
+	var runkeyframes =''
+	var rr1 = `
+	@keyframes anit {
+	    0%{
+	        background:red;
+	    }
+	    100%{
+	        background:yellow;
+	    }
+	}
+	`
+	var rr2 =  `
+	@keyframes anit222 {
+	    0%{
+            opacity: 1;
+	    }
+	    100%{
+	        opacity: 0.5;
+	    }
+	}
+	`
+	runkeyframes = rr1 + rr2
+	insertCss(runkeyframes)
+
+	var sht = delRule('anit')
+	console.log(sht)
+
+
+	const cloneNode = (box)=> {
+		// var box = document.getElementById('box')
+		var box2 = box.cloneNode()
+		box2.id = 'box2'
+		box2.className += ' box2'
+		document.body.append(box2)
+	}
+</script>
+</body>
+ 
+
+</html>

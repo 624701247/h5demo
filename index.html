@@ -35,7 +35,8 @@
 // 
 function goPage(tag) {
 	// console.log('tag', tag, this)
-	window.location = window.location.origin + window.location.pathname + tag + '.html'
+	var baseurl = (window.location.origin + window.location.pathname).replace('index.html', '')
+	window.location =  baseurl + tag + '.html'
 }
 </script>  
 
@@ -67,7 +68,7 @@ li {
 }
 
 </style>
-
+	
 
 
 <script type="text/javascript" src="public/jquery-3.3.1.min.js"></script>
@@ -92,6 +93,10 @@ li {
 		<li onclick="goPage('px单位，缩放页面适配方案')">px单位，缩放页面适配方案</li>
 
 		<li onclick="goPage('盒模型')">盒模型、margin-top百分比相对于啥、边距重叠</li>
+
+
+		<li onclick="goPage('canvas取色')">canvas取指定坐标点颜色，egret项目调用此方法有坑</li>
+		
 
 		
 

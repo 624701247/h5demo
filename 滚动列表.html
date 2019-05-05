@@ -105,7 +105,7 @@
 /**/
 .warp-a {
     margin-top: 1rem;
-    width: 7rem;
+    width: 6.8rem;
     height: 2rem;
     background: blue;
     overflow-x: scroll;
@@ -116,9 +116,10 @@
 .item-a {
     width: 1.6rem;
     height: 1.6rem;
-    margin: 0.2rem;
+    border: 3px red solid; 
     background: orange;
     display: inline-block;
+    font-size: 47px;
 }
 </style>
 </head>  
@@ -154,20 +155,26 @@
 </div>
 
 
-<!-- 横向滚动列表 idea2 -->
-<div class="warp-a">
+<!-- 横向滚动列表 idea2 :
+    利用 display: inline-block; 但是用该属性默认盒子间会有间隙(盒子标签间的换行导致的)
+    1、如下 ABCDE 标签简没有回车，所有没有间隙
+    2、如下 设置父标签 font-size: 0px; 也能消除间隙
+ -->
+ <div class="warp-a">
+    <div class="item-a">A</div><div class="item-a">B</div><div class="item-a">C</div><div class="item-a">D</div><div class="item-a">E</div>
+</div>
+<div class="warp-a" style="font-size: 0px;">
     <div class="item-a">1</div>
     <div class="item-a">2</div>
-
     <div class="item-a">3</div>
     <div class="item-a">4</div>
-
     <div class="item-a">5</div>
     <div class="item-a">6</div>
     <div class="item-a">7</div>
     <div class="item-a">8</div>
     <div class="item-a">9</div>
     <div class="item-a">10</div>
+    <div class="item-a">11</div>
 </div>
 
 </body>  
