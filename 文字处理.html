@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+	<meta charset="UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<title>文字处理</title>
+	<style>
+		/**/
+		.ccont {
+			height :200px;
+			width: 100%;
+		}
+		.cbox {
+			width: 45px;
+			height: 120px;
+			background:red;
+			text-align: center;
+			font-size: 30px;			
+			color：#ffffff;
+			float: left;
+			border: 0;
+			padding: 0;
+			background: repeating-linear-gradient(0deg, #D9CFBB  10%, #C3B393 0, #C3B393 20%,
+                        #D9CFBB 0, #D9CFBB 30%, #C3B393 0);
+		}
+		.cbox1 {
+			line-height: 120px;
+		}
+		.cbox2 {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.cbox3 {
+			display: table;
+		}
+		.cbox3 div {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.cbox4 div {
+			font-size: 60px;
+			transform: scale(0.5);
+			line-height: 120px;
+		}	
+
+		/**/
+		.bacont {
+			width: 100%;
+			font-size: 20px;
+		}
+		.bacont .box {
+			width: 120px;
+		    display:table-cell; 
+			vertical-align:bottom;
+    		height: 100px;
+    		 border:4px solid #beceeb;
+		}
+		.bacont .box font {
+			font-size: 38px;
+		}
+		.bacont .box2 {
+		 	line-height: 20px;
+		}
+	</style>
+</head>
+ 
+<body>
+	<!--  -->
+	<p>在部分android设备上，通过设置height == line-height 使文本垂直居中会有偏差，实际情况会偏上一点点。
+	此坑无法根治，如下4种方法，方法2、4效果一样，比方法1、3效果好。推荐用方法2，即用flex布局</p>
+	<div class="ccont">
+		<div class="cbox cbox1">3</div>
+		<div class="cbox cbox2">3</div>
+		<div class="cbox cbox3"><div>3</div></div>
+		<div class="cbox cbox4"><div>3</div></div>
+	</div>
+
+	<!--  -->
+	<p>文字底部对齐 <br>
+	display:table-cell;<br> 
+	vertical-align:bottom;</p>
+	<div class="bacont">
+		<div class="box box1">
+			<font>10</font>
+			/22
+		</div>
+
+		<div class="box box2">
+			<font>10</font>
+			/22
+		</div>
+	</div>
+</body>
+ 
+
+</html>
