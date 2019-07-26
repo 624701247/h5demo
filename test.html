@@ -1,97 +1,583 @@
-<!DOCTYPE html>
-<html>
- 
+<!doctype html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="format-detection" content="telephone=no" />
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<title>test</title>
-	<style>
-		body {
-			background: linear-gradient(90deg, #D9CFBB  50%, #C3B393 0);
-		}
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+            $(".border-primary").click(function () {
+                var typeId = $(this).attr("data-id");
+                loadMenuChild("/industry/index", null, {typeId: typeId});
+            });
+            $(".hover-line").click(function () {
+                openNewWindow("/industry/details?typeId=" + this.id);
+            });
+            
+            var option1 = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['销售商品数']
+                    },
+                    grid: {
+                        left: 65,
+                        right: 60,
+                        y: 35
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['2019-06-25', '2019-06-26', '2019-06-27', '2019-06-28', '2019-06-29', '2019-06-30', '2019-07-01', '2019-07-02', '2019-07-03', '2019-07-04', '2019-07-05', '2019-07-06', '2019-07-07', '2019-07-08', '2019-07-09', '2019-07-10', '2019-07-11', '2019-07-12', '2019-07-13', '2019-07-14', '2019-07-15', '2019-07-16', '2019-07-17', '2019-07-18', '2019-07-19', '2019-07-20', '2019-07-21', '2019-07-22', '2019-07-23', '2019-07-24', '2019-07-25', ]
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} '
+                        }
+                    },
+                    series: [
+                        {
+                            name:'销售商品数',
+                            type:'bar',
+                            barWidth: 15,
+                            data:['41592', '29018', '34057', '36560', '29282', '32987', '31307', '31564', '38963', '23495', '36805', '33959', '41753', '44264', '39553', '39246', '39726', '39994', '39280', '40289', '51487', '42185', '47392', '33293', '46257', '43634', '43909', '45420', '44217', '44351', '44279', ],
+                            itemStyle:{
+                                normal: {
+                                    color: '#0f69ff',
+                                    /*label: {
+                                        show: true,
+                                        position: 'top',
+                                        formatter: '{c}\n'
+                                    }*/
+                                }
+                            }
+                        }
+                    ]
+                };
+            var myChart1 = echarts.init(document.getElementById('industryMap1'));
+            myChart1.setOption(option1);
 
-		/*
-		320 = (60 + 20) * 4
-		*/
-		.lst {
-			width: 320px;
-			background: rgba(0,0,0,0.3);
-			margin:auto;
-			padding: 0;
-		}
-		.item {
-			width:60px;
-			height:60px;
-			border-radius: 4px;
-			background: blue;
-			font-size: 30px;
-			list-style: none;
-		}
+            var option2 = {
+                 grid: {
+                    x: 85,
+                    x2: 85,
+                    y: 35,
+                    y2: 35
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        var str = '<div><p>'+params[0].name.split("[")[0]+'</p></div>';
+                        for (var i=0;i<params.length;i++){
+                            str += params[i].marker+" "+params[i].seriesName+' : ';
+                            if(params[i].seriesName=='销量'){
+                                str +=toThousands(params[i].data);
+                            }else {
+                                str +=params[i].data;
+                            }
+                            if(params[i].seriesName=='销售额')str+='万元';
+                            str+='<br>';
+                        }
+                        return str;
+                    }
+                },
+                calculable: true,
+                legend: {
+                    data: ['销量','销售额']
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2019-06-25', '2019-06-26', '2019-06-27', '2019-06-28', '2019-06-29', '2019-06-30', '2019-07-01', '2019-07-02', '2019-07-03', '2019-07-04', '2019-07-05', '2019-07-06', '2019-07-07', '2019-07-08', '2019-07-09', '2019-07-10', '2019-07-11', '2019-07-12', '2019-07-13', '2019-07-14', '2019-07-15', '2019-07-16', '2019-07-17', '2019-07-18', '2019-07-19', '2019-07-20', '2019-07-21', '2019-07-22', '2019-07-23', '2019-07-24', '2019-07-25', ],
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            // 使用深浅的间隔色
+                            color: ['#aaa', '#ddd']
+                        }
+                    }
+                },
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '销量',
+                        axisLabel: {
+                            formatter: '{value} '
+                        }
+                    },
+                    {
+                        splitLine: {show: false},
+                        type: 'value',
+                        name: '销售额',
+                        axisLabel: {
+                            formatter: '{value} '
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '销量',
+                        type: 'bar',
+                        barWidth: 15,
+                        itemStyle:{
+                            normal: {
+                                color: '#05b7ff',
+                                /*label: {
+                                    show: true,
+                                    position: 'top',
+                                    formatter: '{c}\n'
+                                }*/
+                            }
+                        },
+                        data:['1842473', '1733635', '1856035', '1868569', '1692505', '1727240', '1881176', '2085048', '1088121', '1851053', '2298098', '1777095', '2005107', '2085222', '1947807', '1656489', '1871556', '1974403', '1780636', '1954644', '2195681', '2057815', '2147326', '1917643', '2080585', '1933843', '2157321', '2138357', '2060872', '2096879', '2049162', ]
+                    },
+                    {
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'top'
+                            }
+                        },
+                        name: '销售额',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        data:['2,391.40', '2,145.90', '2,370.45', '2,484.33', '2,299.37', '2,301.70', '2,286.28', '2,689.38', '1,606.20', '2,224.06', '3,168.44', '2,309.98', '2,563.90', '2,597.46', '2,443.13', '2,094.66', '2,366.09', '2,497.30', '2,270.45', '2,399.99', '2,800.08', '2,543.74', '2,725.99', '2,331.24', '2,639.48', '2,406.19', '2,669.88', '2,717.32', '2,624.00', '2,654.42', '2,526.21', ],
+                        itemStyle: {
+                            normal: {
+                                color: '#f66efd',
+                            }
+                        }
+                    }
+                ]
+            };
+            var myChart2 = echarts.init(document.getElementById('industryMap2'));
+            myChart2.setOption(option2);
+            //自适应宽度
+            window.addEventListener('resize', function () {
+                myChart1.resize();
+                myChart2.resize();
+            })
+            
 
-		/**/
-		.cont1 {
-			width:300px;
-			overflow: hidden;
-			margin:auto;
-			background: rgba(255,0,0,0.5);
-		}
-		.lst1 {
-			margin-top:-20px;
-		}
-		.lst1 .item {
-			float: left;
-			margin-right:20px;
-			margin-top:20px;
-		}
-		.lst1 .clear {
-			clear:both;
-			list-style: none;
-		}
+            
+                var options3 = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                            color: '#fafafa'
+                        }
+                    },
+                    legend: {
+                        /*data: [{name:'潜力值'}],
+                        formatter: function (name) {
+                            return name;
+                        }*/
+                    },
+                    grid: {
+                        top: '7%',
+                        left: '35%',
+                        bottom: '0%'
+                    },
+                    yAxis: [{
+                        type: 'category',
+                        data: ['家居生活/洗护清洁剂/卫生巾/纸/香薰/身体护理/足贴','家居生活/洗护清洁剂/卫生巾/纸/香薰/纸品/湿巾/卷筒纸','家居生活/洗护清洁剂/卫生巾/纸/香薰/衣物清洁剂/护理剂/彩漂','家居生活/洗护清洁剂/卫生巾/纸/香薰/家庭环境清洁剂/多用途清洁剂','家居生活/洗护清洁剂/卫生巾/纸/香薰/纸品/湿巾/抽纸','家居生活/洗护清洁剂/卫生巾/纸/香薰/衣物清洁剂/护理剂/洗衣凝珠','家居生活/洗护清洁剂/卫生巾/纸/香薰/香薰用品/香薰精油','家居生活/洗护清洁剂/卫生巾/纸/香薰/家庭环境清洁剂/马桶清洁剂/洁厕剂','家居生活/洗护清洁剂/卫生巾/纸/香薰/口腔护理/牙齿美白脱色剂','家居生活/洗护清洁剂/卫生巾/纸/香薰/口腔护理/牙刷/口腔清洁工具',],
+                        axisLabel: {
+                            margin: 2/*,
+                            formatter: function (value, index) {
+                                if(value.length>=11){
 
-		/**/
-		.lst2 {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		.lst2 .item {
-			margin: 10px;
-		}
-	</style>
+                                }
+                                return value;
+                            }*/
+                        }
+                    }],
+                    xAxis: [{
+                        type: 'log'
+                    }],
+                    series: [
+                        {
+                            name: '潜力值',
+                            type: 'bar',
+                            barWidth: 15,
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: true,
+                                        position: 'inside'
+                                    },
+                                    color: '#FF7043'
+                                }
+                            },
+                            data: ['164.84','126.79','125.17','121.61','116.36','113.46','106.75','71.16','66.25','64.48',]
+                        }
+                    ]
+                };
+                var myChart3 = echarts.init(document.getElementById('industryMap3'));
+                myChart3.setOption(options3);
+                //自适应宽度
+                window.addEventListener('resize', function () {
+                    myChart3.resize();
+                })
+
+                copyOption = options3;
+                copyeChart = myChart3;
+
+            
+
+            
+            
+       });
+        function changeLegend(obj){
+            debugger;
+            var classObj = obj.className;
+            var selected = {};
+            var text = obj.innerText;
+            var flag = copyOption.legend.selected;
+            if(flag != null){
+                flag = copyOption.legend.selected[text];
+                if(!flag && typeof(flag)!= "undefined"){
+                    $('.'+classObj+'-content').css('color','');
+                    selected[text] = true;
+                    copyOption.legend.selected = selected;
+                    copyeChart.setOption(copyOption);
+                }else{
+                    setStyles(text,classObj,selected);
+                }
+            }else{
+                setStyles(text,classObj,selected);
+            }
+        }
+        function setStyles(text,classObj,selected){
+            debugger;
+            $('.'+classObj+'-content').css('color','#cccccc');
+            selected[text] = false;
+            copyOption.legend.selected = selected;
+            copyeChart.setOption(copyOption);
+        }
+        function toThousands(num) {//千位分隔符
+            var num = (num || 0).toString(), result = '';
+            while (num.length > 3) {
+                result = ',' + num.slice(-3) + result;
+                num = num.slice(0, num.length - 3);
+            }
+            if (num) { result = num + result; }
+            return result;
+        }
+    </script>
 </head>
- 
 <body>
-	<!--  -->
-	<p>子盒子用float:left; 但是这样会导致父盒子无法自适应高度，可通过在最后加上一个 clear:both; 的子盒子解决;
-	</p>
-	<div class="cont1">
-		<ul class="lst lst1">
-			<li class="item">1</li>
-			<li class="item">2</li>
-			<li class="item">3</li>
-			<li class="item">4</li>
-			<li class="item">5</li>
-			<li class="clear"></li>
-		</ul>
-	</div>
+<div class="panel">
 
-	<!--  -->
-	<p>用flex布局实现</p>
-	<ul class="lst lst2">
-		<li class="item">1</li>
-		<li class="item">2</li>
-		<li class="item">3</li>
-		<li class="item">4</li>
-		<li class="item">5</li>
-		<li class="item">6</li>
-	</ul>
+    
 
+
+
+
+<div class="panel-heading">
+
+    <div class="panel panel-default"  id="tags">
+        <div class="panel-heading">
+            <ul class="breadcrumb breadcrumb-caret">
+                
+                    
+                        <li class="location-text text-uppercase ">当前类目路径：</li>
+                    
+
+                    <li><a href="javascript:void(0)"  data-id="99997" class="label label-rounded border-primary text-teal-700">一级类目:家居生活</a></li>
+                
+                    
+
+                    <li><a href="javascript:void(0)"  data-id="17285" class="label label-rounded border-primary text-teal-700">二级类目:洗护清洁剂/卫生巾/纸/香薰</a></li>
+                
+
+            </ul>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li>
+                        <a href="javascript:void(0);" data-id="99997" class="label label-rounded border-primary text-teal-700">返回上一级</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+
+        <div class="panel-body" id="children">
+            
+            
+                
+                    <a href="javascript:void(0);" data-id="17298" class="label label-rounded border-primary text-teal-700">身体护理</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17297" class="label label-rounded border-primary text-teal-700">纸品/湿巾</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17296" class="label label-rounded border-primary text-teal-700">衣物清洁剂/护理剂</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17295" class="label label-rounded border-primary text-teal-700">香薰用品</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17294" class="label label-rounded border-primary text-teal-700">卫生巾/护垫/成人尿裤</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17293" class="label label-rounded border-primary text-teal-700">室内除臭/芳香用品</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17292" class="label label-rounded border-primary text-teal-700">驱虫用品</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17291" class="label label-rounded border-primary text-teal-700">家私/皮具护理品</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17290" class="label label-rounded border-primary text-teal-700">家庭环境清洁剂</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17289" class="label label-rounded border-primary text-teal-700">头发清洁/护理/造型</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17288" class="label label-rounded border-primary text-teal-700">身体清洁</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17287" class="label label-rounded border-primary text-teal-700">面部清洁/护理</a>
+                
+            
+                
+                    <a href="javascript:void(0);" data-id="17286" class="label label-rounded border-primary text-teal-700">口腔护理</a>
+                
+            
+            
+        </div>
+    </div>
+
+</div>
+
+
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h6 class="panel-title">行业规模</h6>
+        <div class="table-responsive">
+            <table class="table table-xlg text-nowrap">
+                <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="media-left">
+                            <h6 class="no-margin">昨日销售商品数</h6>
+                            <h5 class="text-semibold no-margin"><a class="text-sales text-danger" href="javascript:void(0);">44,279</a> 种</h5>
+                            <span class="text-muted">较上一天
+                                <small class="text-danger  text-size-base"><i class="icon-arrow-down12"></i>
+                                
+                                    
+                                    
+                                        (-0.16%)
+                                    
+                                
+                                </small>
+                            </span>
+                        </div>
+                    </td>
+
+                    <td class="col-md-4">
+                        <div class="media-left">
+                            <h6 class="no-margin">昨日销量</h6>
+                            <h5 class="text-semibold no-margin"><a class="text-sales text-danger" href="javascript:void(0);">2,049,162</a> 件</h5>
+                            <span class="text-muted">较上一天
+                                <small class="text-danger  text-size-base"><i class="icon-arrow-down12"></i>
+                                
+                                    
+                                    
+                                        (-2.33%)
+                                    
+                                
+                                </small>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="col-md-4">
+                        <div class="media-left">
+                            <h6 class="no-margin">昨日销售额</h6>
+                            <h5 class="text-semibold no-margin"><a class="text-sales text-danger" href="javascript:void(0);">￥2,526.21</a> 万元</h5>
+                            <span class="text-muted">较上一天
+                                <small class="text-danger  text-size-base"><i class="icon-arrow-down12"></i>
+                                
+                                    
+                                    
+                                        (-5.08%)
+                                    
+                                
+                                </small>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table text-nowrap">
+
+                <tr class="active border-double">
+                    <td>行业趋势</td>
+                </tr>
+                <tr>
+                    <td id="e1"><div id="industryMap1" style="height: 300px;width: 100%; margin:0 auto;"></div></td>
+                </tr>
+                <tr>
+                    <td id="e2"><div id="industryMap2" style="height: 300px;width: 100%; margin:0 auto;"></div></td>
+                </tr>
+                <tr>
+                    <td id="e3">
+                        <div style="text-align: center;font-size: 14px;margin-top: 1%">
+                            <span class='potential-content'>
+                                <i class="icon-gear" style="color: #FF7043"></i>
+                                <span class="potential" onclick="changeLegend(this);" style="cursor: pointer;">潜力值</span>
+                                <i class="icon-help" style="cursor: pointer;font-size: 12px"
+                                   data-toggle='tooltip' data-placement="right" data-popup="popover" data-trigger="hover"
+                                   data-html="true" title="潜力值越大，销量空间越大，竞争越小。潜力值=这个类目的销量/这个类目的商品总数">
+                                </i>
+                            </span>
+                        </div>
+                        <div id="industryMap3" style="height: 300px;width: 100%; margin:0 auto;">
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+            <table class="table text-nowrap">
+
+                <thead>
+                <tr class="active">
+                    <td colspan="7">昨日行业TOP 10</td>
+                </tr>
+                </thead>
+                <tr>
+                    <th>类目名称</th>
+                    <th>销售商品数</th>
+                    <th>销量</th>
+                    <th>平均销量</th>
+                    <th>销售额</th>
+                    <th>店铺数量</th>
+                    <th>平均单价</th>
+                </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17399">家居生活/洗护清洁剂/卫生巾/纸/香薰/纸品/湿巾/抽纸</a></td>
+                        <td>3378</td>
+                        <td>393057</td>
+                        <td>116</td>
+                        <td>￥668.54 万元</td>
+                        <td>1354</td>
+                        <td>￥24.64</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17402">家居生活/洗护清洁剂/卫生巾/纸/香薰/纸品/湿巾/卷筒纸</a></td>
+                        <td>2305</td>
+                        <td>292242</td>
+                        <td>127</td>
+                        <td>￥348.35 万元</td>
+                        <td>1091</td>
+                        <td>￥22.96</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17326">家居生活/洗护清洁剂/卫生巾/纸/香薰/口腔护理/牙刷/口腔清洁工具</a></td>
+                        <td>1622</td>
+                        <td>104587</td>
+                        <td>64</td>
+                        <td>￥83.41 万元</td>
+                        <td>869</td>
+                        <td>￥11.54</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17325">家居生活/洗护清洁剂/卫生巾/纸/香薰/口腔护理/牙膏</a></td>
+                        <td>2315</td>
+                        <td>79438</td>
+                        <td>34</td>
+                        <td>￥95.64 万元</td>
+                        <td>1159</td>
+                        <td>￥19.13</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17307">家居生活/洗护清洁剂/卫生巾/纸/香薰/家庭环境清洁剂/多用途清洁剂</a></td>
+                        <td>585</td>
+                        <td>71141</td>
+                        <td>122</td>
+                        <td>￥36.61 万元</td>
+                        <td>461</td>
+                        <td>￥14.30</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17393">家居生活/洗护清洁剂/卫生巾/纸/香薰/衣物清洁剂/护理剂/洗衣液</a></td>
+                        <td>1716</td>
+                        <td>67139</td>
+                        <td>39</td>
+                        <td>￥114.23 万元</td>
+                        <td>1074</td>
+                        <td>￥26.82</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17311">家居生活/洗护清洁剂/卫生巾/纸/香薰/家庭环境清洁剂/马桶清洁剂/洁厕剂</a></td>
+                        <td>864</td>
+                        <td>61485</td>
+                        <td>71</td>
+                        <td>￥47.99 万元</td>
+                        <td>615</td>
+                        <td>￥11.26</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17391">家居生活/洗护清洁剂/卫生巾/纸/香薰/衣物清洁剂/护理剂/洗衣粉</a></td>
+                        <td>1050</td>
+                        <td>47160</td>
+                        <td>45</td>
+                        <td>￥60.19 万元</td>
+                        <td>647</td>
+                        <td>￥18.58</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17341">家居生活/洗护清洁剂/卫生巾/纸/香薰/驱虫用品/灭鼠/杀虫剂</a></td>
+                        <td>1275</td>
+                        <td>46970</td>
+                        <td>37</td>
+                        <td>￥51.02 万元</td>
+                        <td>743</td>
+                        <td>￥16.57</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class="hover-line text-blue" href="javascript:void(0);" id="17357">家居生活/洗护清洁剂/卫生巾/纸/香薰/身体护理/足贴</a></td>
+                        <td>273</td>
+                        <td>45001</td>
+                        <td>165</td>
+                        <td>￥26.46 万元</td>
+                        <td>221</td>
+                        <td>￥15.50</td>
+                    </tr>
+                
+                
+
+            </table>
+        </div>
+    </div>
+</div>
+</div>
 </body>
- 
-
 </html>
