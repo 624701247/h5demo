@@ -1,0 +1,71 @@
+<!DOCTYPE html>  
+  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+<title>toast弱提示</title>  
+
+<script>  
+!function() {
+	var CW_REM = 7.5
+	var CH = document.documentElement.clientHeight || document.body.clientHeight;
+	var CW = Math.min(document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
+	var CH_REM = CH / CW * CW_REM
+	document.documentElement.style.fontSize = (CW / CW_REM) + 'px';	
+}()
+
+</script>  
+
+
+<script type="text/javascript" src="js/carry.js"></script>
+<link rel="stylesheet" type="text/css" href="css/carry.css" />
+
+<style>
+html, body {
+    -ms-touch-action: none;
+    background: #ffffff!important;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    height: 100%;
+
+    background-repeat:  no-repeat;
+    background-size: 100% 100%; 
+
+    font-family: "Microsoft YaHei" ! important;
+    font-style: normal;
+}
+</style>
+
+<script>
+	function ontapToast() {
+		console.log('sdf')
+		carry.toast('观尔乃插标卖首')
+	}
+</script>
+
+</head>  
+<body>
+	<button onclick="ontapToast()">toast</button>
+
+	<div style="width:100px; height:100px;">
+		<canvas width="100" height="100" id="ringCvs"></canvas>
+	</div>
+
+<script>
+	var ringProg = carry.RingProgress( document.getElementById('ringCvs') )
+	var count = 0
+	var timer = setInterval(function() {
+		ringProg.setPersent(count)
+		if(count == 100) {
+			clearInterval(timer)
+		} else {
+			count++
+		}
+	}, 100)
+
+
+</script>
+</body>  
+</html> 

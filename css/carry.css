@@ -1,0 +1,43 @@
+
+/* toast */
+.cy-toast {
+  position: fixed;
+  z-index: 40;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 0.8em;
+  max-width: 97%;
+  -webkit-animation: ani-fadein 0.5s linear forwards;
+          animation: ani-fadein 0.5s linear forwards;
+}
+.cy-toast span {
+  background: #000000;
+  opacity: 0.6;
+  border-radius: 0.2em;
+  font-size: 0.36em;
+  color: white;
+  text-align: center;
+  display: table;
+  padding: 0.4em;
+  margin: auto;
+  height: 1.2em;
+  line-height: 1.2em;
+  min-width: 2em;
+  white-space: normal;
+  word-break: break-all;
+}
+
+@-webkit-keyframes ani-fadein {
+  0% {
+    -webkit-transform: translate(0, 1em);
+            transform: translate(0, 1em);
+  }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+}
+/* end of toast */

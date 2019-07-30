@@ -39,7 +39,7 @@ carry = carry || {};
     utils.isDemo = (window.location.host == "demo.h5.aiwanpai.com")
     utils.isLocal = (window.location.hostname == "127.0.0.1" || window.location.hostname == "172.18.11.100")
 
-    // 
+    // 返回 [min, max]
     utils.randomInt = function (min, max) {
         var r = Math.random()   //  Math.random() 返回0 -- 1的开区间，即 0 < x < 1
         r = Math.ceil(r * (max - (min - 1)))
@@ -213,8 +213,8 @@ carry = carry || {};
 /* 环形进度条*/
 carry.RingProgress = function(canvas) {  
     var lineHei = 9
-    var forecolor = "#ffffff"     //前景色
-    var bgcolor = 'rgba(0,0,0,0)' //背景色
+    var forecolor = "#ff0000"     //前景色
+    var bgcolor = 'rgba(0,ff,0,1)' //背景色
 
     var context = canvas.getContext("2d");  
     var center_x = canvas.width / 2;  
@@ -250,7 +250,7 @@ carry.RingProgress = function(canvas) {
     }  
   
     //绘制文字  
-    function text(n) {  
+    function drawText(n) {  
         context.save(); //save和restore可以保证样式属性只运用于该段canvas元素  
         context.fillStyle = forecolor;  
         var font_size = 40;  
@@ -263,8 +263,7 @@ carry.RingProgress = function(canvas) {
     backgroundCircle();  
 
     return {
-        setPersent: foregroundCircle,
-        setPersentTxt: text
+        setPersent: foregroundCircle
     }
 } 
 
@@ -469,9 +468,9 @@ carry.shake = {}
     }
 
     // 弱提示
-    docs.weakHint = function(desc) {
+    docs.toast = function(desc) {
         var node = document.createElement('div')
-        node.className = "cont-weakhint"
+        node.className = "cy-toast"
         var str = '';
         str += '<span>' + desc + '</span>'
         node.innerHTML = str;
