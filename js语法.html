@@ -1,0 +1,81 @@
+<script type="text/javascript" js-version="es5">
+	/* egret ts编译成js es5的module和class的写法
+	*/
+	
+/***************************************/
+/*module*/
+var chess = null;
+(function (chess) {
+    chess.name = "chess"
+})(chess || (chess = {})); 
+
+(function (chess) {
+    chess.name = "chess 222222" //覆盖
+    chess.addName = "i am add"  //新加
+})(chess || (chess = {})); 
+
+
+
+/***************************************/
+/*class*/
+//继承机制
+function __extends(sub, _super) {
+    for (var p in _super) {
+        if (_super.hasOwnProperty(p)) {
+            sub[p] = _super[p];
+        }
+    }
+    function __() {
+        this.constructor = sub;
+    }
+    __.prototype = _super.prototype;
+    sub.prototype = new __();
+}
+
+//数据安全封装
+var __define =  function (pt, val, g, s) { 
+    Object.defineProperty(pt, val, {
+        configurable: true,
+        enumerable: true,
+        get: g, 
+        set: s || function() {console.warn("该值只能通过相应set方法修改！")}
+    }); 
+};
+
+//父类
+var Animal = (function () {
+    var count = 0 
+
+    function Animal(tag) { //类构造函数
+        this._desc = "animal desc init" + tag  //类成员变量，被数据安全封装，不能写入，读取通过 obj.desc
+
+        count++  //静态私有变量的实现。使用闭包的方法， 改构造函数是个闭包，能访问外部匿名函数的局部变量 count
+        console.log("Animal类创建的第 " + count + " 个对象")
+    }
+
+    var def = __define, c = Animal, pt = c.prototype;
+    pt.setDesc = function (val) {  //类成员方法
+        this._desc = "desc: " + val;
+    };
+
+    def(pt, "desc", function () {
+        return this._desc;
+    }, null);
+
+    Animal.staticVal = "i am a static value"; //类静态成员变量
+    return Animal;
+}());
+
+//子类
+var Fish = (function (_super) {
+    __extends(Fish, _super);
+    function Fish() {
+        _super.apply(this, arguments);
+    }
+    var def = __define, c = Fish, pt = c.prototype;
+    return Fish;
+}(Animal));
+
+
+
+</script>
