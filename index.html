@@ -1,11 +1,10 @@
-<!DOCTYPE html>  
-  
+<!DOCTYPE html>
 <html lang="en">
 <head>  
 <meta charset="utf-8" />  
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
 <link rel="icon" href="favicon.ico" type="image/x-icon">
-<title>demo大全</title>  
+<title>demo大全</title>
 
 <script>  
 /* 初始化rem宽高适配 */ 
@@ -38,7 +37,14 @@ function goPage(tag) {
 	var baseurl = (window.location.origin + window.location.pathname).replace('index.html', '')
 	window.location =  baseurl + tag + '.html'
 }
-</script>  
+</script>
+
+<style>
+	html {
+		/*一个屏幕宽度固定为100vw，如下就把默认字体大小设置为屏幕的n分之一，也即 1rem 等于 屏幕宽度n分之一 */
+		/*font-size: 10vw;*/
+	}
+</style>
 
 
 <style>
@@ -100,6 +106,8 @@ li {
 		<li onclick="goPage('文字处理')">文字处理</li>
 		
 		<li onclick="goPage('网格列表')">网格列表</li>
+
+		<li onclick="goPage('正则')">正则</li>
 		
 
 		<li><a href="https://github.com/624701247/sarea">3级联动地区选择器 \ sarea</a></li>

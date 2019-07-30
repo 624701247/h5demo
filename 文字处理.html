@@ -69,10 +69,29 @@
 		.bacont .box2 {
 		 	line-height: 20px;
 		}
+
+
+		/**/
+		.jinx1 {
+			text-align: center;
+			font-size: 16px;
+		}
+		.jinx2 {
+			text-align: center;
+			font-size: 32px;
+			transform: scale(0.5);
+		}
 	</style>
 </head>
  
 <body>
+	<!--  -->
+	<p>字体大小是有下限的，比如我的pc chrome浏览器字体最小只能小到9px。
+	可以设置一个浏览器能正常显示的字号，然后用 transform: scale(); 调整到你需要的实际字体大小</p>
+	<div class="jinx1">观尔乃插标卖首</div>
+	<div class="jinx2">观尔乃插标卖首</div>
+
+
 	<!--  -->
 	<p>在部分android设备上，通过设置height == line-height 使文本垂直居中会有偏差，实际情况会偏上一点点。
 	此坑无法根治，如下4种方法，方法2、4效果一样（大概会偏上1px），比方法1、3效果好。推荐用方法2，即用flex布局</p>
