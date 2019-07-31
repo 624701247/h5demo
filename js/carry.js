@@ -18,6 +18,7 @@ carry = carry || {};
         }
         return false
     }
+    /*
     var getUrlParam = function (url) {
         var get = {}
         url = url || window.location.href.toString()
@@ -29,6 +30,22 @@ carry = carry || {};
                 var j = q[i].split("=");
                 get[j[0]] = j[1];
             }
+        }
+        return get
+    }
+    */
+    // 用正则版本
+    var getUrlParam = function (url) {
+        var get = {}
+        url = url || window.location.href.toString()
+        var str = url.replace(/.*\?|.*/, '') // 过滤掉 ? 及其前面的内容
+        str = str.replace(/#.*/, '')         // 过滤掉 # 及其前面的内容
+        if(str) {
+            var qa = str.split("&")
+            for (var idx in qa) {
+                var pa = qa[idx].split("=")
+                get[pa[0]] = pa[1];
+            }   
         }
         return get
     }

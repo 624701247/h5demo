@@ -2,80 +2,167 @@
 	/* egret ts编译成js es5的module和class的写法
 	*/
 	
-/***************************************/
-/*module*/
-var chess = null;
-(function (chess) {
-    chess.name = "chess"
-})(chess || (chess = {})); 
+	/***************************************/
+	/*module*/
+	var chess = null;
+	(function (chess) {
+	    chess.name = "chess"
+	})(chess || (chess = {})); 
 
-(function (chess) {
-    chess.name = "chess 222222" //覆盖
-    chess.addName = "i am add"  //新加
-})(chess || (chess = {})); 
+	(function (chess) {
+	    chess.name = "chess 222222" //覆盖
+	    chess.addName = "i am add"  //新加
+	})(chess || (chess = {})); 
 
 
 
-/***************************************/
-/*class*/
-//继承机制
-function __extends(sub, _super) {
-    for (var p in _super) {
-        if (_super.hasOwnProperty(p)) {
-            sub[p] = _super[p];
-        }
-    }
-    function __() {
-        this.constructor = sub;
-    }
-    __.prototype = _super.prototype;
-    sub.prototype = new __();
+	/***************************************/
+	/*class*/
+	//继承机制
+	function __extends(sub, _super) {
+	    for (var p in _super) {
+	        if (_super.hasOwnProperty(p)) {
+	            sub[p] = _super[p];
+	        }
+	    }
+	    function __() {
+	        this.constructor = sub;
+	    }
+	    __.prototype = _super.prototype;
+	    sub.prototype = new __();
+	}
+
+	//数据安全封装
+	var __define =  function (pt, val, g, s) { 
+	    Object.defineProperty(pt, val, {
+	        configurable: true,
+	        enumerable: true,
+	        get: g, 
+	        set: s || function() {console.warn("该值只能通过相应set方法修改！")}
+	    }); 
+	};
+
+	//父类
+	var Animal = (function () {
+	    var count = 0 
+
+	    function Animal(tag) { //类构造函数
+	        this._desc = "animal desc init" + tag  //类成员变量，被数据安全封装，不能写入，读取通过 obj.desc
+
+	        count++  //静态私有变量的实现。使用闭包的方法， 改构造函数是个闭包，能访问外部匿名函数的局部变量 count
+	        console.log("Animal类创建的第 " + count + " 个对象")
+	    }
+
+	    var def = __define, c = Animal, pt = c.prototype;
+	    pt.setDesc = function (val) {  //类成员方法
+	        this._desc = "desc: " + val;
+	    };
+
+	    def(pt, "desc", function () {
+	        return this._desc;
+	    }, null);
+
+	    Animal.staticVal = "i am a static value"; //类静态成员变量
+	    return Animal;
+	}());
+
+	//子类
+	var Fish = (function (_super) {
+	    __extends(Fish, _super);
+	    function Fish() {
+	        _super.apply(this, arguments);
+	    }
+	    var def = __define, c = Fish, pt = c.prototype;
+	    return Fish;
+	}(Animal));
+</script>
+
+<script>
+	/*****************************************************************************/
+//如下代码有缺陷，并不能解决问题
+
+//去除整个画面能滚动回弹
+//@param bgTag : 想要设置其为不可滚动回弹的标签
+//@param scrollTag : bgTag标签中特殊需要可滚动的标签
+killRollback = function(bgTag, scrollTag) {
+	var touchY, touchEY;
+	//var bgTag = "rankdiv", scrollTag = "#scrollview"
+	document.getElementById(bgTag).addEventListener("touchstart", function(e){
+	    touchY = e.touches[0].pageY;
+	}, false);
+	document.getElementById(bgTag).addEventListener("touchmove", function(e){
+	    touchEY = e.touches[0].pageY;
+	    if(j(scrollTag).scrollTop() == 0){
+	    	if(touchEY > touchY){
+	    	   e.preventDefault();
+	        }  		 
+		}
+	    var divHeight = j(scrollTag).height();
+	    var nScrollHeight = j(scrollTag)[0].scrollHeight;
+	    var nScrollTop = j(scrollTag)[0].scrollTop;
+	    if(nScrollTop + divHeight >= nScrollHeight - 5){   //注意 ： 有些设备 nScrollTop 不精准 （比如叫兽的小米） 所以这里  - 5
+	    	if(touchEY <= touchY){
+				// alert("滚到底部了")
+	    	   e.preventDefault();
+	       }  
+	    }       
+	}, false);
+	document.getElementById(bgTag).addEventListener("touchend", function(e){
+	    touchEY = touchY = 0;
+	}, false); 
 }
 
-//数据安全封装
-var __define =  function (pt, val, g, s) { 
-    Object.defineProperty(pt, val, {
-        configurable: true,
-        enumerable: true,
-        get: g, 
-        set: s || function() {console.warn("该值只能通过相应set方法修改！")}
-    }); 
-};
 
-//父类
-var Animal = (function () {
-    var count = 0 
+/*****************************************************************************/
+/*以上方法能解决问题，但是有个缺陷：
+bgTag 标签内的标签若使用onclick注册点击事件则会无法响应。  比如 ：   <img id="btn" src="btn.png"  onclick="onClickBtn()" />
 
-    function Animal(tag) { //类构造函数
-        this._desc = "animal desc init" + tag  //类成员变量，被数据安全封装，不能写入，读取通过 obj.desc
-
-        count++  //静态私有变量的实现。使用闭包的方法， 改构造函数是个闭包，能访问外部匿名函数的局部变量 count
-        console.log("Animal类创建的第 " + count + " 个对象")
-    }
-
-    var def = __define, c = Animal, pt = c.prototype;
-    pt.setDesc = function (val) {  //类成员方法
-        this._desc = "desc: " + val;
-    };
-
-    def(pt, "desc", function () {
-        return this._desc;
-    }, null);
-
-    Animal.staticVal = "i am a static value"; //类静态成员变量
-    return Animal;
-}());
-
-//子类
-var Fish = (function (_super) {
-    __extends(Fish, _super);
-    function Fish() {
-        _super.apply(this, arguments);
-    }
-    var def = __define, c = Fish, pt = c.prototype;
-    return Fish;
-}(Animal));
+*/
 
 
+//去除整个画面能滚动回弹
+//@param bgTag : 想要设置其为不可滚动回弹的标签
+//@param scrollTag : bgTag标签中特殊需要可滚动的标签
+function killRollback(bgTag, scrollTag) {
+    var istTouchSv = false
+    var touchSY = 0
+    var scrollJTag = "#" + scrollTag
+    document.getElementById(bgTag).addEventListener("touchstart", function(e){
+        if(istTouchSv) {
+            touchSY = e.touches[0].pageY; 
+        }
+        else {
+           e.preventDefault();  //取消与事件关联的默认动作
+        }
+    }, false);
+
+    document.getElementById(bgTag).addEventListener("touchmove", function(e) {
+        if(istTouchSv) {
+            if(e.touches[0].pageY > touchSY) {  //往下滑
+                if(j(scrollJTag).scrollTop() == 0) {   //滑到顶部
+                   e.preventDefault();
+                }
+            }
+            else { //往上滑
+                if(j(scrollJTag)[0].scrollTop + j(scrollJTag).height() >= j(scrollJTag)[0].scrollHeight - 5){   //滑到底部  //注意 有些设备nScrollTop不精准 （比如叫兽的小米） 所以这里  - 5
+                   e.preventDefault();  
+                } 
+
+            }
+        }
+        else {
+           e.preventDefault();  //取消与事件关联的默认动作
+        }
+    }, false);
+
+
+    document.getElementById(scrollTag).addEventListener("touchstart", function(e){
+        istTouchSv = true
+    }, false);
+    document.getElementById(scrollTag).addEventListener("touchend", function(e){
+        istTouchSv = false
+    }, false);
+}
+killRollback("maindiv", "scrolldiv")
 
 </script>
