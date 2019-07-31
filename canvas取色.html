@@ -35,7 +35,7 @@
             var y = e.layerY;
 
  
-            // kone point : egret项目里面用以下方法在pc端上没问题。但到了手机端取到的颜色都是错乱的。
+            // kone point : 小心设备兼容问题，多测测。如果图像有被缩放的话可能会坐标读取不准从而导致取色不对
             var imgData = ctx.getImageData(x,y,1,1);
             var r = imgData.data[0];
             var g = imgData.data[1];
