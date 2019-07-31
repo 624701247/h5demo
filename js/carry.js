@@ -236,6 +236,7 @@ carry.RingProgress = function(canvas) {
     }  
   
     //绘制运动圆环  
+    // @param 圆环进度 0 -- 100
     function foregroundCircle(n) {  
         context.save();  
         context.strokeStyle = forecolor;  
@@ -249,7 +250,7 @@ carry.RingProgress = function(canvas) {
         context.restore();  
     }  
   
-    //绘制文字  
+    /*绘制文字，就是圆环内xx%进度显示，有bug,旧的xx%文字不会被擦除
     function drawText(n) {  
         context.save(); //save和restore可以保证样式属性只运用于该段canvas元素  
         context.fillStyle = forecolor;  
@@ -258,7 +259,7 @@ carry.RingProgress = function(canvas) {
         var text_width = context.measureText(n.toFixed(0)+"%").width;  
         context.fillText(n.toFixed(0)+"%", center_x-text_width/2, center_y + font_size/2);  
         context.restore();  
-    }  
+    } */ 
 
     backgroundCircle();  
 

@@ -15,97 +15,118 @@
     i 表示匹配时忽略大小写<br>
     m 多行; 将开始和结束字符（^和$）视为在多行上工作（也就是，分别匹配每一行的开始和结束（由 \n 或 \r 分割），而不只是只匹配整个输入字符串的最开始和最末尾处。<br>
     s 表示使用单行模式，不是单行模式的话   .  符号无法匹配 换行回车<br>
-
-    <br>
 </p>
 <script>
-var str = '';
-// 写法1： 
-// 因为字符串的转义问题，字符串的两个\\实际上是一个\。
-str = str.replace(new RegExp('\\-', 'g'), '')
+    var str = '';
+    // 写法1： 
+    // 因为字符串的转义问题，字符串的两个\\实际上是一个\。
+    str = str.replace(new RegExp('\\-', 'g'), '')
 
-// 写法2 :
-// 推荐写法
-str = str.replace(/\-/g, '')
-
-
-// \d可以匹配一个数字
-// \w可以匹配一个字母或数字
-var str = '001a002b003c004005d'
-str = str.replace(/00\d/g, '')  // 替换掉所有的  00n  这样的数字结构
+    // 写法2 :
+    // 推荐写法
+    str = str.replace(/\-/g, '')
 
 
-// {n}表示n个字符
-var str = '123456!7890'
-str = str.replace(/\d{3}/g, '')  // 连续的3个数字替换掉
+    // \d可以匹配一个数字
+    // \w可以匹配一个字母或数字
+    var str = '001a002b003c004005d'
+    str = str.replace(/00\d/g, '')  // 替换掉所有的  00n  这样的数字结构
 
 
-// i 匹配忽略大小写
-var str = 'AaBbAAaaCc'
-str = str.replace(/a/gi, '')
+    // {n}表示n个字符
+    var str = '123456!7890'
+    str = str.replace(/\d{3}/g, '')  // 连续的3个数字替换掉
 
 
-// []表示范围
-var str = 'abcd!1234@efg#0$q^'
-str = str.replace(/[a-z0-9]/g, '')  // 替换掉所有 a 到 z  和 0 到 9  的字符
+    // i 匹配忽略大小写
+    var str = 'AaBbAAaaCc'
+    str = str.replace(/a/gi, '')
+
+
+    // []表示范围
+    var str = 'abcd!1234@efg#0$q^'
+    str = str.replace(/[a-z0-9]/g, '')  // 替换掉所有 a 到 z  和 0 到 9  的字符
 
 
 
-// .可以匹配任意字符
-var str = 'a1a2++aaab++'
-str = str.replace(/a./g, '')
+    // .可以匹配任意字符
+    var str = 'a1a2++aaab++'
+    str = str.replace(/a./g, '')
 
 
-// +表示任意个字符（至少一个）
-// *表示任意个字符（包括0个）
-// \ 转义字符
-var str = `A<img src="a" />B<img src="b" />C`
-str = str.replace(/<img.+\/>/g, '')
-/* 注意：以上运行输出的是 'AC'，' src="a" />B<img src="b" ' 中间这部分内容都没当成 '.+'  贪婪的处理掉了 
-    需要保留 B,请加上 ?  如下写法：*/
+    // +表示任意个字符（至少一个）
+    // *表示任意个字符（包括0个）
+    // \ 转义字符
+    var str = `A<img src="a" />B<img src="b" />C`
+    str = str.replace(/<img.+\/>/g, '')
+    /* 注意：以上运行输出的是 'AC'，' src="a" />B<img src="b" ' 中间这部分内容都没当成 '.+'  贪婪的处理掉了 
+        需要保留 B,请加上 ?  如下写法：*/
 
-// 正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符
-// ? 使其采用非贪婪匹配，也就是尽可能少匹配
-var str = `A<img src="a" />B<img src="b" />C`
-str = str.replace(/<img.+?\/>/g, '')   // 输出 ABC
-
-
-// 正则匹配模式 . 不能匹配换行符号的
-// s 标志使其使用单行模式，这样 . 就能匹配换行符啦
-var str = `AA
-哈哈
-BB
-duang
-AA呵呵
-BB
-AABB`
-str = str.replace(/AA.*?BB/g,  '')  //匹配不到的哦，因为有换行
-str = str.replace(/AA.*?BB/gs, '')    //匹配成功
+    // 正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符
+    // ? 使其采用非贪婪匹配，也就是尽可能少匹配
+    var str = `A<img src="a" />B<img src="b" />C`
+    str = str.replace(/<img.+?\/>/g, '')   // 输出 ABC
 
 
-// \s 空格
-// \n 换行符
-// \r 回车符号
-// \S 任何非空白字符，等价于 [^ \f\n\r\t\v]
-var str = ' a  b   c    d e'
-str = str.replace(/\s+/g, '-') // 将连续n个空格替换为指定字符
+    // 正则匹配模式 . 不能匹配换行符号的
+    // s 标志使其使用单行模式，这样 . 就能匹配换行符啦
+    var str = `AA
+    哈哈
+    BB
+    duang
+    AA呵呵
+    BB
+    AABB`
+    str = str.replace(/AA.*?BB/g,  '')  //匹配不到的哦，因为有换行
+    str = str.replace(/AA.*?BB/gs, '')    //匹配成功
 
 
-// ^表示行的开头
-// $表示行的结束
-// m 多行，功能请看上文
-var str = "ss++++++end";
-str = str.replace(/^ss.*?end$/, '')
-
-var str = `ss++++++end
-ssend
-ss!!!end
-ss1111end2
-3ss444end
-`
-str = str.replace(/^ss.*?end$/gm, '')
+    // \s 空格
+    // \n 换行符
+    // \r 回车符号
+    // \S 任何非空白字符，等价于 [^ \f\n\r\t\v]
+    var str = ' a  b   c    d e'
+    str = str.replace(/\s+/g, '-') // 将连续n个空格替换为指定字符
 
 
+    // ^表示行的开头
+    // $表示行的结束
+    // m 多行，功能请看上文
+    var str = "ss++++++end";
+    str = str.replace(/^ss.*?end$/, '')
+
+    var str = `ss++++++end
+    ssend
+    ss!!!end
+    ss1111end2
+    3ss444end
+    `
+    str = str.replace(/^ss.*?end$/gm, '')
+</script>
+
+<script>
+    // test    一个在字符串中测试是否匹配的RegExp方法，它返回true或false。
+    /1/.test('12345') // 判断是否
+
+
+    // exec    一个在字符串中执行查找匹配的RegExp方法，它返回一个数组（未匹配到则返回null）
+    /(a)(b)(c)/.exec('abc.abc.abc') 
+    //输出  ["abc", "a", "b", "c", index: 0, input: "abc.abc.abc", groups: undefined]
+    //  () 表示的就是要提取的分组
+    //     [匹配到的第一个字符串, 提取的第一个组的字符串 ... 提取的第n个组的字符串]
+
+
+
+    // split   一个使用正则表达式或者一个固定字符串分隔一个字符串，并将分隔后的子字符串存储到数组中的String方法。
+    'a,b;; c  d'.split(/[\s\,\;]+/) //输出 ['a', 'b', 'c', 'd']
+
+
+    // match   一个在字符串中执行查找匹配的String方法，它返回一个数组或者在未匹配到时返回null
+    'abca'.match(/a/) // 输出 ["a", index: 0, input: "abca", groups: undefined]
+
+
+    // search  一个在字符串中测试匹配的String方法，它返回匹配到的位置索引，或者在失败时返回-1
+    'cbab'.search(/b/g)  // 输出 1 
 </script>
 </body>
 </html>
