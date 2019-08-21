@@ -19,13 +19,15 @@
 		"target": "es5",
     "outFile": "out/jinx.bundle.js",  //编译的输出文件
     "outDir": "bin-debug",  //编译的输出目录，就是将所有的编译的ts一一编译为对应的js
-    "experimentalDecorators": true,
+    "experimentalDecorators": true, // 启用对ES7装饰器的实验性支持
+    "declaration":true,  //生成相应的 d.ts 文件
+    "incremental": true, //启用增量编译 （什么是增量编译：???）
     "types": [],
     "removeComments": true,  //编译删除注释
     "lib": [//添加需要的解析的语法，否则TS会检测出错。
       "es2016",
       "dom"
-    ]
+    ] 
 	},
 	"include": [
     "src"  //将src目录下的ts文件编译进去，支持 glob匹配模式
@@ -37,12 +39,16 @@
 	"exclude": [ //不包含的编译目录
 		"node_modules",
 		"out"
+  ],
+  "references": [  //工程引用
+		{ "path": "jinx"},
+		{ "path": "draven"}
 	]
 }
-```
+``` 
 
 ### 命令行注解 :
-``` 
+```
 参数 
 -b : 指定含有ts配置的目录或指定的ts配置文件
 -w : watch 咯，对应的文件有修改自动编译
@@ -53,3 +59,14 @@ tsc -b cfg1.json cfg2.json -w
 tsc -b ts/jinx ts/draven -w
 
 ```
+
+### 如何分模块输出文件
+##### 比如我这里有两个namespace(jinx & draven),如何分别编译成jinx.min.js & draven.min.js
+* 方法1：用命令行 -b 参数，看上文;         
+请运行 npm run watchadc-v2 看看效果       
+<br>
+* 方法2：用项目引用的方法，详细看文档[https://www.tslang.cn/docs/handbook/project-references.html]     
+简单来说就是跟目录抽一个ts配置，该配置引用其他所有子模块,详细请看ts目录下的tsconfig.json        
+请运行 npm run watchadc 看看效果
+
+

@@ -4,10 +4,10 @@
 		"sourceMap": true,
 		"declaration":true,
 		"target": "es5",
-		"outDir": "out",
     "experimentalDecorators": true,
     "types": [],
 		"removeComments": true,
-		"composite":true
+		"composite": false,
+		"incremental": true
 	}
 }

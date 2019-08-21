@@ -1,9 +1,8 @@
 {
-	"compilerOptions": {
-	},
+	"files": [],
+	"include": [],
 	"references": [
 		{ "path": "jinx"},
 		{ "path": "draven"}
-	],
-	"exclude": ["./main.ts"]
+	]
 }

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watchadc": "tsc -b ts/jinx ts/draven -w"
+    "watchadc": "tsc -b ts -w",
+    "watchadc-v2": "tsc -b ts/jinx ts/draven -w"
   },
   "repository": {
     "type": "git",
