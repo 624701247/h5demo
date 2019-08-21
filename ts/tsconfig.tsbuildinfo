@@ -1,0 +1,218 @@
+{
+  "program": {
+    "fileInfos": {
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.d.ts": {
+        "version": "49ff9798f592c8b7e628fd881401e68810c1b3589ecd7a41b32b3c287374cde0",
+        "signature": "49ff9798f592c8b7e628fd881401e68810c1b3589ecd7a41b32b3c287374cde0"
+      },
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "1f753cee573dea40df8a9dc873fef5566957b19ad513874f6643d8dfb14842d0",
+        "signature": "1f753cee573dea40df8a9dc873fef5566957b19ad513874f6643d8dfb14842d0"
+      },
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "973df4e41aea3780ce77073777d37dd5896f684124f4c42409f3a832133837a4",
+        "signature": "973df4e41aea3780ce77073777d37dd5896f684124f4c42409f3a832133837a4"
+      },
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.webworker.importscripts.d.ts": {
+        "version": "fe4e59403e34c7ff747abe4ff6abbc7718229556d7c1a5b93473fb53156c913b",
+        "signature": "fe4e59403e34c7ff747abe4ff6abbc7718229556d7c1a5b93473fb53156c913b"
+      },
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.scripthost.d.ts": {
+        "version": "b9faa17292f17d2ad75e34fac77dd63a6403af1dba02d39cd0cbb9ffdf3de8b9",
+        "signature": "b9faa17292f17d2ad75e34fac77dd63a6403af1dba02d39cd0cbb9ffdf3de8b9"
+      },
+      "d:/bluemoon/h5-prj/h5demo/ts/out/jinx.bundle.d.ts": {
+        "version": "79bccb6cd0021ba4024391557aab85a3402e94d9190f2461150a7267629ddabd",
+        "signature": "79bccb6cd0021ba4024391557aab85a3402e94d9190f2461150a7267629ddabd"
+      },
+      "d:/bluemoon/h5-prj/h5demo/ts/out/draven.bundle.d.ts": {
+        "version": "f7e46c737e1c7a24c97b44129208389231b992fdbb3a7157d7dcd730511b17aa",
+        "signature": "f7e46c737e1c7a24c97b44129208389231b992fdbb3a7157d7dcd730511b17aa"
+      },
+      "d:/bluemoon/h5-prj/h5demo/ts/main.ts": {
+        "version": "08ede2b6bece6374cc940735455fae54dc28400016a3fe1f1824252266185f45",
+        "signature": "a1b6c6871f25248228cacf57c32d9cbfcdd5f26028d25fd5840a18795250675a"
+      },
+      "d:/bluemoon/h5-prj/h5demo/ts/draven/draven1.ts": {
+        "version": "3bf7b03eb41389acd9fc9b4db54cc7723db21bf6e5f93d1d997aa2595ba437b4",
+        "signature": "f7e46c737e1c7a24c97b44129208389231b992fdbb3a7157d7dcd730511b17aa"
+      },
+      "d:/bluemoon/h5-prj/h5demo/ts/jinx/jinx1.ts": {
+        "version": "19222b685975be3940ed304cb74062b7658e6b13f59cbf328c7279301192b53f",
+        "signature": "98d16db1b46feadd40e33d9279a9349987e7273d77273a8a4c82edaea3ae82fe"
+      },
+      "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts": {
+        "version": "a1b6c6871f25248228cacf57c32d9cbfcdd5f26028d25fd5840a18795250675a",
+        "signature": "a1b6c6871f25248228cacf57c32d9cbfcdd5f26028d25fd5840a18795250675a"
+      }
+    },
+    "options": {
+      "module": 2,
+      "watch": true,
+      "sourceMap": true,
+      "target": 1,
+      "experimentalDecorators": true,
+      "types": [],
+      "removeComments": true,
+      "declaration": true,
+      "composite": true,
+      "configFilePath": "D:/bluemoon/h5-prj/h5demo/ts/tsconfig.json"
+    },
+    "referencedMap": {},
+    "exportedModulesMap": {},
+    "semanticDiagnosticsPerFile": [
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.d.ts",
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.es5.d.ts",
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.dom.d.ts",
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "c:/users/kone/appdata/roaming/npm/node_modules/typescript/lib/lib.scripthost.d.ts",
+      "d:/bluemoon/h5-prj/h5demo/ts/out/jinx.bundle.d.ts",
+      "d:/bluemoon/h5-prj/h5demo/ts/out/draven.bundle.d.ts",
+      [
+        "d:/bluemoon/h5-prj/h5demo/ts/main.ts",
+        [
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/main.ts",
+            "start": 111,
+            "length": 7,
+            "messageText": "Cannot redeclare block-scoped variable 'echarts'.",
+            "category": 1,
+            "code": 2451,
+            "relatedInformation": [
+              {
+                "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+                "start": 12,
+                "length": 7,
+                "messageText": "'echarts' was also declared here.",
+                "category": 3,
+                "code": 6203
+              }
+            ]
+          },
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/main.ts",
+            "start": 294,
+            "length": 7,
+            "messageText": "Cannot redeclare block-scoped variable 'goodLet'.",
+            "category": 1,
+            "code": 2451,
+            "relatedInformation": [
+              {
+                "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+                "start": 113,
+                "length": 7,
+                "messageText": "'goodLet' was also declared here.",
+                "category": 3,
+                "code": 6203
+              }
+            ]
+          },
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/main.ts",
+            "start": 1403,
+            "length": 3,
+            "messageText": "Cannot redeclare block-scoped variable 'tsc'.",
+            "category": 1,
+            "code": 2451,
+            "relatedInformation": [
+              {
+                "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+                "start": 249,
+                "length": 3,
+                "messageText": "'tsc' was also declared here.",
+                "category": 3,
+                "code": 6203
+              }
+            ]
+          }
+        ]
+      ],
+      "d:/bluemoon/h5-prj/h5demo/ts/draven/draven1.ts",
+      "d:/bluemoon/h5-prj/h5demo/ts/jinx/jinx1.ts",
+      [
+        "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+        [
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+            "start": 12,
+            "length": 7,
+            "messageText": "Cannot redeclare block-scoped variable 'echarts'.",
+            "category": 1,
+            "code": 2451,
+            "relatedInformation": [
+              {
+                "file": "d:/bluemoon/h5-prj/h5demo/ts/main.ts",
+                "start": 111,
+                "length": 7,
+                "messageText": "'echarts' was also declared here.",
+                "category": 3,
+                "code": 6203
+              }
+            ]
+          },
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+            "start": 113,
+            "length": 7,
+            "messageText": "Cannot redeclare block-scoped variable 'goodLet'.",
+            "category": 1,
+            "code": 2451,
+            "relatedInformation": [
+              {
+                "file": "d:/bluemoon/h5-prj/h5demo/ts/main.ts",
+                "start": 294,
+                "length": 7,
+                "messageText": "'goodLet' was also declared here.",
+                "category": 3,
+                "code": 6203
+              }
+            ]
+          },
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+            "start": 144,
+            "length": 6,
+            "messageText": "Overload signatures must all be ambient or non-ambient.",
+            "category": 1,
+            "code": 2384
+          },
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+            "start": 174,
+            "length": 10,
+            "messageText": "Overload signatures must all be ambient or non-ambient.",
+            "category": 1,
+            "code": 2384
+          },
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+            "start": 208,
+            "length": 15,
+            "messageText": "Overload signatures must all be ambient or non-ambient.",
+            "category": 1,
+            "code": 2384
+          },
+          {
+            "file": "d:/bluemoon/h5-prj/h5demo/ts/out/main.d.ts",
+            "start": 249,
+            "length": 3,
+            "messageText": "Cannot redeclare block-scoped variable 'tsc'.",
+            "category": 1,
+            "code": 2451,
+            "relatedInformation": [
+              {
+                "file": "d:/bluemoon/h5-prj/h5demo/ts/main.ts",
+                "start": 1403,
+                "length": 3,
+                "messageText": "'tsc' was also declared here.",
+                "category": 3,
+                "code": 6203
+              }
+            ]
+          }
+        ]
+      ]
+    ]
+  },
+  "version": "3.5.3"
+}

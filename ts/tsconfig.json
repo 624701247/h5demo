@@ -1,19 +1,9 @@
 {
 	"compilerOptions": {
-		"module": "amd",
-		"watch": true,
-		"sourceMap": true,		
-		"target": "es5",
-    "outFile": "out/jinx.bundle.js",
-    "experimentalDecorators": true,
-    "types": [],
-    "removeComments": true
 	},
-	"include": [
-        "src"
-    ],
-	"exclude": [
-		"node_modules",
-		"out"
-	]
+	"references": [
+		{ "path": "jinx"},
+		{ "path": "draven"}
+	],
+	"exclude": ["./main.ts"]
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECharts做表</title>
+
+
+  <!-- <link rel="stylesheet" type="text/css"  href="css/test.css" /> -->
+  <!-- <link rel="stylesheet/less" type="text/css" href="css/test.less" /> -->
+  <!-- <script src="public/less.min.js" type="text/javascript"></script> -->
+
+  <!-- 引入 echarts.js -->
+  <script src="lib/echarts.js"></script>
+
+  <script src="out/jinx.bundle.js"></script>
+  <script>
+    !function () {
+      var CW_REM = 7.5
+      var CH = document.documentElement.clientHeight || document.body.clientHeight;
+      var CW = Math.min(document.documentElement.clientWidth || document.body.clientWidth, CH * 1.4);
+      var CH_REM = CH / CW * CW_REM
+      document.documentElement.style.fontSize = (CW / CW_REM) + 'px';
+    }()
+
+  </script>
+
+  <style>
+    html,
+    body {
+      -ms-touch-action: none;
+      background: #ffffff !important;
+      padding: 0;
+      border: 0;
+      margin: 0;
+      height: 100%;
+
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+
+      font-family: "Microsoft YaHei" ! important;
+      font-style: normal;
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+  <div id="main" style="width: 600px;height:400px;"></div>
+
+  <script>
+    jinx.echMgr.runEcharts()
+  </script>
+</body>
+
+</html>
