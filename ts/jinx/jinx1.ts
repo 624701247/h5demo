@@ -1,7 +1,7 @@
 declare let echarts:any
 
 namespace jinx {
-  console.log('run jinx 44444s')
+  console.log('run jinx1 411114444')
 
   // kone point : 用 let 代替 var , 不然如下，用var重复定义都是可以编译通过的
   export var badVar = 1

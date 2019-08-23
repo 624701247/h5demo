@@ -16,7 +16,8 @@
 		"module": "amd",
 		"watch": true, //带上 命令行输入tsc后，文件修改后会自动编译,你也可以用命令行 tsc --watch 或 tsc -w
 		"sourceMap": true,		//是否生产 .map 文件（当然是要了，这样才能在chrome调试 ts文件）
-		"target": "es5",
+    "target": "es5",
+    "rootDir": ".", //Specifies the root directory of input files
     "outFile": "out/jinx.bundle.js",  //编译的输出文件
     "outDir": "bin-debug",  //编译的输出目录，就是将所有的编译的ts一一编译为对应的js
     "experimentalDecorators": true, // 启用对ES7装饰器的实验性支持
@@ -28,10 +29,17 @@
       "es2016",
       "dom"
     ] 
-	},
+  },
+  
+  //将src目录下的ts文件编译进去
+  // 支持 glob匹配模式 : 
+  // * 匹配0或多个字符（不包括目录分隔符）
+  // ? 匹配一个任意字符（不包括目录分隔符）
+  // **/ 递归匹配任意子目录
 	"include": [
-    "src"  //将src目录下的ts文件编译进去，支持 glob匹配模式
+    "src"  
   ],
+
   "files": [ //指定需要编译的文件列表
     "core.ts",
     "sys.ts"
@@ -60,7 +68,7 @@ tsc -b ts/jinx ts/draven -w
 
 ```
 
-### 如何分模块输出文件
+### 如何分模块输出文件 ？？？
 ##### 比如我这里有两个namespace(jinx & draven),如何分别编译成jinx.min.js & draven.min.js
 * 方法1：用命令行 -b 参数，看上文;         
 请运行 npm run watchadc-v2 看看效果       
@@ -68,5 +76,10 @@ tsc -b ts/jinx ts/draven -w
 * 方法2：用项目引用的方法，详细看文档[https://www.tslang.cn/docs/handbook/project-references.html]     
 简单来说就是跟目录抽一个ts配置，该配置引用其他所有子模块,详细请看ts目录下的tsconfig.json        
 请运行 npm run watchadc 看看效果
+
+
+### 如何指定某个ts编译出来放在最前面 ？？？         
+
+"include" 与 "files" 同时使用，会先编译files上指定的。
 
 

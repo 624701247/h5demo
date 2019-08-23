@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watchadc": "tsc -b ts -w",
-    "watchadc-v2": "tsc -b ts/jinx ts/draven -w"
+    "watchadc-v2": "tsc -b ts/jinx ts/draven -w",
+    "buildts": "tsc -b ts/jinx/tsconfig.prod.json"
   },
   "repository": {
     "type": "git",
