@@ -45,8 +45,6 @@
         animation: marquee 5s linear infinite;
         text-indent: 1rem;
     }
-
-
     @keyframes marquee {
         0% {
             left: 0;
@@ -58,6 +56,14 @@
             left: 0rem;
         }
     }
+
+
+    .ell {
+        width: 200px;overflow: hidden;
+        font-size: large;
+        white-space: nowrap; /*不换行*/
+        text-overflow: ellipsis; /*文本超框自动带上 ... 省略号*/
+    }
     </style>
 </head>
 
@@ -67,6 +73,9 @@
     <div id="ktest" class="ktest">
         <span id="spp">123456789abcdefghijklmn~end</span>
     </div>
+
+    <div class="ell">爱的快去我那是大狂风那啥的拉的来土建水电费踏上巅峰</div>
+
 
     <script>
         // kone point:  动态添加 css 样式
