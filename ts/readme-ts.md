@@ -28,7 +28,12 @@
     "lib": [//添加需要的解析的语法，否则TS会检测出错。
       "es2016",
       "dom"
-    ] 
+    ],
+    "paths": {//Specify path mapping to be computed relative to baseUrl option."
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   
   //将src目录下的ts文件编译进去

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />  
+  <title>axios使用</title>
+  <style>
+  </style>
+</head>
+<body>
+  <script type="text/javascript" src="js/axios.min.js"></script>
+  <script>
+    // api base
+    var testApi = function() {
+      function onReqSucc(config) {
+        console.log('req succ', config)
+        return config
+      }
+      function onReqErr(err) {
+        console.log('req err', err.request)
+        return Promise.reject(err)
+      }
+      function onRespSucc(response) {
+        console.log('resp succ', response)
+        return response.data
+      }
+      function onRespErr(err) {
+        console.log('resp err', err.request) //如果重定向的请求跨域的话，这里返回的responseURL为空串
+        console.log('请求url', err.request.responseURL)
+        console.log('响应状态码', err.request.status)
+        return {netErr: err}
+
+        // return Promise.reject(err)
+      }
+      var api = axios.create({
+        baseURL: 'http://10.1.162.56:8588/test/'
+        // , method: 'post' //不起作用哦
+        , timeout: 10000
+        , headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      })
+      api.interceptors.request.use(onReqSucc, onReqErr)       // 添加请求拦截器
+      api.interceptors.response.use(onRespSucc, onRespErr)    // 添加响应拦截器
+      return api
+    }()
+
+    /*********************************************************************************************/
+    // 写法1 ： then catch
+    function gtest() {
+      testApi({
+        url: 'gtest'
+        ,method: 'get'
+        ,params: {ver:'1.0.0'}
+      }).then((data) => {
+        console.log(data)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    // 写法2（推荐写法）： async wait 
+    async function gtest2() {
+      let data = await testApi({
+        url: 'gtest',
+        params: {ver:'1.0.0'},
+        // 默认不写method就是get请求； 
+        // data: {a:1} //get 请求传不了body参数，所以这里设置data无效的
+      })
+      if(data.netErr) {
+        console.log('请求网络错误')
+      }
+      console.log('2', data)
+    }
+
+    /*********************************************************************************************/
+    // body参数格式：Request Payload ； 也就是json格式
+    async function ptest() {
+      let data = await testApi({
+        method: 'post',
+        url: 'ptest',
+        params: {value: 'pgds'}, 
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        data: {a:12} 
+      })
+    }
+    // json格式转formData字符串，json的value值不能是对象哦
+    function json2formData(obj) {
+      var str = ''
+      for(var key in obj) {
+        str += '&' + key + '=' + obj[key]
+      }
+      str = str.replace('&', '')
+      return str
+    }
+    // body参数格式：Request Payload ； 也就是json格式
+    async function ptest2() {
+      let data = await testApi({
+        method: 'post',
+        url: 'ptest',
+        params: {value: 'pgds'}, 
+        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+        data: json2formData({a:12})
+      })
+    }
+
+    /*********************************************************************************************/
+    async function post302() {
+      let data = await testApi({
+        method: 'post',
+        url: 'to302',
+        params: {ver:'1.0'},
+        data: json2formData({a:12})
+      })
+    }
+  </script>
+  
+  <div>
+    <button onclick="gtest()">get then写法</button>
+    <button onclick="gtest2()">get await写法</button>
+
+    <h5>为什么axios先请求options在请求post:</h5>
+    <p>
+      访问跨源服务器的时候（跨域请求），就有可能在POST前先发送一个校验OPTIONS请求，注意是有可能哈，详情请百度~</br>
+    </p>
+    <button onclick="ptest()">post（Request Payload）</button>
+    <button onclick="ptest2()">post（Form Data）</button>
+
+    <h5>关于请求失败（请求url不对或跨域拒绝了）响应返回的err.request (onRespErr里面的) </h5>
+    <p>
+      是个XMLHttpRequest对象，</br>
+      request.responseURL : 请求链接（?xx=x 那块query参数包含在内的）</br>
+      request.status : 响应状态码 </br>
+      </br> 
+      情况a: 请求地址不对情况： responseURL能返回请求url; status 为 404</br>
+      情况b: 跨域被拒绝的情况： responseURL返回空字符串;  status 为 0</br>
+      请求的url给你返回302重定向的情况：返回重定向的链接跟状态码，</br>
+      &nbsp;&nbsp;&nbsp; 也就是无法捕获到302状态码的。</br>
+      &nbsp;&nbsp;&nbsp; 也就是如果重定向url不对的就跟情况a一样；重定向url跨域拒绝的话就跟情况b一样。
+    </p>
+    <button onclick="post302()">post302</button>
+  </div>
+
+</body>
+</html>
