@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>刮刮卡</title>
+
+    <style>
+        html, body {
+            width:100%;
+            height: 100%;
+            margin:0;
+        }
+        .sweep {
+            top:10%;
+            margin: auto;
+            position: relative;
+            width: 80%;
+            height: 60%;
+            background: red;
+        }
+        .sweep .sweep-lay {
+            width: 100%;
+            height:100%;
+            position: absolute;
+        }
+        .sweep .sweep-prize {
+            background: yellow;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="sweep" class="sweep">
+        <div class="sweep-lay sweep-prize">
+            吔屎啦黎~
+            <img src="image/car.png" />
+        </div>
+        <canvas id="canvas" class="sweep-lay"></canvas>
+    </div>
+
+    <script>
+        var sweep = {}
+        !function(swp) {
+            var parentEl;
+            var c1; //画布
+            var ctx; //画笔
+            var ismousedown; //标志用户是否按下鼠标或开始触摸
+            var isOk = 0; //标志用户是否已经刮开了一半以上
+
+            //这是为了不同分辨率上配合@media自动调节刮的宽度
+            var fontem = parseInt(window.getComputedStyle(document.documentElement, null)["font-size"]);
+
+            function eventDown(e) {
+                e.preventDefault();
+                ismousedown = true;
+            }
+
+            function eventUp(e) {
+                e.preventDefault();
+                //复制画布上指定矩形的像素数据
+                var a = ctx.getImageData(0, 0, c1.width, c1.height);
+                var j = 0;
+                for (var i = 3; i < a.data.length; i += 4) {
+                    if (a.data[i] == 0) j++;
+                }
+                //当被刮开的区域等于一半时，则可以开始处理结果
+                if (j >= a.data.length / 8) {
+                    console.log('刮开一半啦~')
+                    isOk = 1;
+                }
+                ismousedown = false;
+            }
+
+            //鼠标移动 和 触摸移动
+            function eventMove(e) {
+                e.preventDefault();
+                if (ismousedown) {
+                    if (e.changedTouches) {
+                        e = e.changedTouches[e.changedTouches.length - 1];
+                    }
+                    var oX = c1.offsetLeft + parentEl.offsetLeft,
+                        oY = c1.offsetTop + parentEl.offsetTop;
+                    var x = (e.clientX + document.body.scrollLeft || e.pageX) - oX || 0,
+                        y = (e.clientY + document.body.scrollTop || e.pageY) - oY || 0;
+
+                    //画360度的弧线，就是一个圆，因为设置了ctx.globalCompositeOperation = 'destination-out';
+                    //画出来是透明的
+                    ctx.beginPath();
+                    ctx.arc(x, y, fontem * 1.2, 0, Math.PI * 2, true);
+
+                    //下面3行代码是为了修复部分手机浏览器不支持destination-out
+                    //我也不是很清楚这样做的原理是什么
+                    c1.style.display = 'none';
+                    c1.offsetHeight;
+                    c1.style.display = 'inherit';
+                    // 
+                    ctx.fill();
+                }
+            }
+
+            swp.create = function (parentId, cvsId) {
+                parentEl = document.getElementById(parentId)
+
+                c1 = document.getElementById(cvsId);
+                c1.width = c1.clientWidth;
+                c1.height = c1.clientHeight;
+                ctx = c1.getContext("2d");
+                //PC端的处理
+                c1.addEventListener("mousemove", eventMove, false);
+                c1.addEventListener("mousedown", eventDown, false);
+                c1.addEventListener("mouseup", eventUp, false);
+                //移动端的处理
+                c1.addEventListener('touchstart', eventDown, false);
+                c1.addEventListener('touchend', eventUp, false);
+                c1.addEventListener('touchmove', eventMove, false);
+                
+                // 
+                ctx.globalCompositeOperation = "source-over";
+                // 
+                ctx.fillStyle = '#aaaaaa';
+                ctx.fillRect(0, 0, c1.clientWidth, c1.clientHeight);
+                ctx.fill();
+                // 
+                ctx.font = "Bold 30px Arial";
+                ctx.textAlign = "center";
+                ctx.fillStyle = "#999999";
+                ctx.fillText("duang", c1.width / 2, 50);//把这个属性设为这个就可以做出圆形橡皮擦的效果
+                
+                // 在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的。
+                ctx.globalCompositeOperation = 'destination-out';
+            }
+        }(sweep)
+
+        // 
+        sweep.create("sweep", "canvas")
+    </script>
+</body>
+
+</html>
