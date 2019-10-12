@@ -68,6 +68,12 @@
     str = str.replace(/<img.+?\/>/g, '')   // 输出 ABC
 
 
+    // ? 符号又一作用
+    var pp = /\.tsx?$/  // 匹配以 .ts结尾或.tsx结尾的
+    'one.ts'.replace(pp, '')
+    'two.tsx'.replace(pp, '')
+
+
     // 正则匹配模式 . 不能匹配换行符号的
     // s 标志使其使用单行模式，这样 . 就能匹配换行符啦
     var str = `AA
