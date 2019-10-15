@@ -100,7 +100,6 @@
     // m 多行，功能请看上文
     var str = "ss++++++end";
     str = str.replace(/^ss.*?end$/, '')
-
     var str = `ss++++++end
     ssend
     ss!!!end
@@ -108,6 +107,12 @@
     3ss444end
     `
     str = str.replace(/^ss.*?end$/gm, '')
+
+
+    // ^ 的其他作用 ： 取反
+    '1234567890qwerasfaASFASDF.$#暗示法'.replace(/[a-z\d]/gi, '') // 替换掉 a-z（i不区分大小学） 和数字
+    '1234567890qwerasfaASFASDF.$#暗示法'.replace(/[^a-z\d]/gi, '') // 取反
+
 
 
     // x|y 匹配‘x’或者‘y’。 匹配x成功则返回x的结果，否则返回匹配y的结果
