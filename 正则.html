@@ -68,6 +68,15 @@
     str = str.replace(/<img.+?\/>/g, '')   // 输出 ABC
 
 
+
+    //匹配连续任意个数字(用*)
+    //  ()?   表示括号里面的内容不确定有没有，无论有无都算匹配上
+    var str1 = '(png)'
+    var str2 = '(png?23123123)'
+    console.log( str1.replace(/png(\?\d*)?/, '') )
+    console.log( str2.replace(/png(\?\d*)?/, '') )
+
+
     // ? 符号又一作用
     var pp = /\.tsx?$/  // 匹配以 .ts结尾或.tsx结尾的
     'one.ts'.replace(pp, '')
@@ -118,7 +127,7 @@
     // x|y 匹配‘x’或者‘y’。 匹配x成功则返回x的结果，否则返回匹配y的结果
     'https://www.kone.com?a=1&b=2#jinx'.match(/\?.*#|\?.*/)   // 匹配到 ?a=1&b=2#
     'https://www.kone.com?a=1&b=2'.match(/\?.*#|\?.*/)    // 匹配到 ?a=1&b=2
- 
+
 </script>
 
 <script>
