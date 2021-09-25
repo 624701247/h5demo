@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>input输入框相关</title>
+
+  <style>
+    .inp {
+      border: 1px solid #D9D9D9; 
+      outline: none; /*聚焦时显示的框样式*/
+    }
+    .inp:focus {
+      outline: 1px solid red; /*也是聚焦时显示的框样式，优先级大于上面那个*/
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- autocomplete="on" -->
+  <!-- name="telInp" -->
+  <!-- autofocus="autofocus"  自动聚焦 -->
+  <!-- disabled="disabled"  禁用 -->
+
+  <!-- 属性type=”number”和type=”tel”会唤起系统的数字键盘，这对于交互还是挺友好的。 -->
+  <input class="inp inp-tel" placeholder="请输入手机号" value="" maxlength="11" type="tel" />
+
+  <script>
+    // 检测是否是手机号码
+    function checkIsTel(phone) {
+      if (phone) {
+        var reg = /^(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])\d{8}$/;
+        if (reg.test(phone)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // 格式化为整数 
+    function formatInt(el) {
+      el.value = el.value.replace(/[^\d]/g, '')
+    }
+
+    // 格式化为正浮点数，保留两位小数
+    // param decp : 小数位数
+    function formatFloat(el, decp) {
+      if(decp == null) {
+        decp = 2
+      }
+
+      let val = el.value
+
+      val = val.replace(/[^\d.]/g, '')  //将除了数字跟小数点之外的字符过滤掉
+      val = val.replace(/^\.*/, '')     //过滤掉开头的连续多个小数点字符
+      val = val.replace(/^0*/, '')      //过滤掉开头的连续多个0 比如 00012 格式成 12
+
+
+    '00.1231'.replace(/0*([1-9]\d*|0\.\d*)/, '$1')  // 过滤掉前面多余的0
+
+    '0.123100000'.replace(/(?:\.0*|(\.\d+?)0+)$/, '$1') //过滤掉小数点后多余的0 
+
+    
+    '0.0023100000'.replace(/(\.\d+?)0+$/, '$1')
+
+    }
+
+
+    // 
+    let telEl = document.body.querySelector('.inp-tel')
+    telEl.onfocus = function(ev) {
+      console.log('获取焦点', ev.target)
+    }
+    telEl.oninput = function(ev) {
+      formatInt(ev.target)
+    }
+    telEl.onblur = function(ev) {
+      console.log('失去焦点', ev.target)
+      if(!ev.target.value) {
+        console.log('请输入手机号')
+      } else if(!checkIsTel(ev.target.value)) {
+        console.log('手机号格式不对') 
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>

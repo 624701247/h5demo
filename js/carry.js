@@ -84,22 +84,6 @@ carry = carry || {};
         el_clog.innerHTML += (txt + ' ` ')
     }
 
-    // 检测是否是手机号码
-    utils.checkIsTel = function(phone) {
-        if(phone) {
-            var reg = /^(13[0-9]|14[579]|15[0-9]|166|17[0-9]|18[0-9]|19[89])\d{8}$/;
-            if(reg.test(phone)) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            return false;
-        }
-    }
-
     //获取字符串中的整数
     utils.getNumByStr = function(str) {
         var num = str.replace(/[^0-9]/ig, ""); 

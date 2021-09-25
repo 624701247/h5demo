@@ -33,7 +33,7 @@
     str = str.replace(/00\d/g, '')  // 替换掉所有的  00n  这样的数字结构
 
 
-    // {n}表示n个字符
+    // {n} 表示n个字符
     var str = '123456!7890'
     str = str.replace(/\d{3}/g, '')  // 连续的3个数字替换掉
 
@@ -43,19 +43,19 @@
     str = str.replace(/a/gi, '')
 
 
-    // []表示范围
+    // [] 表示范围
     var str = 'abcd!1234@efg#0$q^'
     str = str.replace(/[a-z0-9]/g, '')  // 替换掉所有 a 到 z  和 0 到 9  的字符
 
 
 
-    // .可以匹配任意字符
+    // . 可以匹配任意字符
     var str = 'a1a2++aaab++'
     str = str.replace(/a./g, '')
 
 
-    // +表示任意个字符（至少一个）
-    // *表示任意个字符（包括0个）
+    // + 表示任意个字符（至少一个）
+    // * 表示任意个字符（包括0个）
     // \ 转义字符
     var str = `A<img src="a" />B<img src="b" />C`
     str = str.replace(/<img.+\/>/g, '')
@@ -65,16 +65,16 @@
     // 正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符
     // ? 使其采用非贪婪匹配，也就是尽可能少匹配
     var str = `A<img src="a" />B<img src="b" />C`
+    str.match(/<img.+?\/>/g)
     str = str.replace(/<img.+?\/>/g, '')   // 输出 ABC
+    str.match(/<img.+?\/>/g)
 
 
 
     //匹配连续任意个数字(用*)
     //  ()?   表示括号里面的内容不确定有没有，无论有无都算匹配上
-    var str1 = '(png)'
-    var str2 = '(png?23123123)'
-    console.log( str1.replace(/png(\?\d*)?/, '') )
-    console.log( str2.replace(/png(\?\d*)?/, '') )
+    'png'.replace(/png(\?\d*)?/, '')
+    'png?23123123'.replace(/png(\?\d*)?/, '')
 
 
     // ? 符号又一作用
@@ -118,7 +118,7 @@
     str = str.replace(/^ss.*?end$/gm, '')
 
 
-    // ^ 的其他作用 ： 取反
+    // ^ 的其他作用是取反
     '1234567890qwerasfaASFASDF.$#暗示法'.replace(/[a-z\d]/gi, '') // 替换掉 a-z（i不区分大小学） 和数字
     '1234567890qwerasfaASFASDF.$#暗示法'.replace(/[^a-z\d]/gi, '') // 取反
 
@@ -127,6 +127,30 @@
     // x|y 匹配‘x’或者‘y’。 匹配x成功则返回x的结果，否则返回匹配y的结果
     'https://www.kone.com?a=1&b=2#jinx'.match(/\?.*#|\?.*/)   // 匹配到 ?a=1&b=2#
     'https://www.kone.com?a=1&b=2'.match(/\?.*#|\?.*/)    // 匹配到 ?a=1&b=2
+
+
+    /* 正则表达式中 的$1,$2
+
+    () 表示捕获分组，()会把每个分组里的匹配的值保存起来，从左向右，以分组的左括号为标志，第一个出现的分组的组号为1，第二个为2，以此类推
+
+    $1，$2表达的是小括号里面的内容。$1是第一个小括号里的内容，$2是第二个小括号里面的内容，依此类推     */
+    var dateStr = '20210925'
+    var exp = new RegExp(/(\d{4})(\d{2})(\d{2})/)
+    var year = dateStr.replace(exp, '$1')
+    var month = dateStr.replace(exp, '$2')
+    var day = dateStr.replace(exp, '$3')
+    console.log(year, month, day)
+
+    // (?:) 表示非捕获分组，和捕获分组唯一的区别在于，非捕获分组匹配的值不会保存起来
+    var dateStr2 = '20210925' 
+    var exp2 = new RegExp(/(?:\d{4})(\d{2})(\d{2})/)
+    dateStr2.replace(exp2, '$1')  // 第一个括号有 ?: 是非捕获分组，所以这里 $1 是   09
+
+    // 括号嵌套
+    'ab'.replace(/(a(b))/, '$1') // $1 表示外层括号的内容，即ab ； $2 表示内层括号的内容，即 b
+    'ab'.replace(/(?:a(b))/, '$1')  //因为外层括号有 ?: , 所以 $1表示内层括号的内容。
+
+
 
 </script>
 
