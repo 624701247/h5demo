@@ -2,5 +2,7 @@
   "extends": "../tsconfig.base",
   "compilerOptions": {
     "outFile": "../out/draven.bundle.js",
+    "target": "ES5",
+    "experimentalDecorators": true
   } 
 }

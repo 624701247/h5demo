@@ -1,0 +1,100 @@
+<!DOCTYPE html>  
+  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+<title>flex布局</title>  
+
+<style>
+	.fl1 {
+		display: flex;
+
+		/*主轴方向： 纵向 */
+		flex-direction: column;  
+
+		height: 150px;
+		background: indigo;
+	}
+	.fl1 .hd {
+		height: 20px;
+
+		/* 定义了在分配多余空间之前，项目占据的主轴空间（main size）浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。*/
+		flex-basis: 20px;  
+
+		/*定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。设置为1表示但空间不足时也不会缩小 */
+		/* 这里设置为0，表示不缩小 */
+		flex-shrink: 0;    
+
+		background: gray;
+	}
+	.fl1 .bd {
+		/* 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。 */
+		/* 这里设置为1，表示放大铺满剩余空间 */
+		flex-grow: 1;  
+		
+		/* 为了让 flex-grow:1 生效必须加上这个。 还不清楚加上有啥用 */
+		height: 0; 
+
+		background:lightseagreen;
+	}
+	.fl1 .ft {
+		height: 30px;
+		flex-basis: 30px;
+		flex-shrink: 0;
+		background: greenyellow;
+	}
+
+	.fl2 {
+		margin-top: 50px;
+		display: inline-flex;
+		background: red;
+	}
+	.fl2 .item {
+		margin-right: 10px;
+		margin-bottom: 20px;
+	}
+</style>
+</head>  
+<body>
+	<h1>flex弹性布局学习</h1>
+
+	<div class="fl1">
+		<section class="hd">头部</section>
+		<section class="bd">
+			父标签、头部、底部固定高度，<br/>
+			身体部分，高度铺满剩余部分。
+		</section>
+		<section class="ft">底部</section>
+	</div>
+
+	<div class="fl2">
+		<div class="item">
+			<input placeholder="input默认有个固定的宽度" />	
+		</div>
+		<div class="item">
+			<input placeholder="input默认有个固定的宽度" />	
+		</div>
+		<div class="item">
+			<input placeholder="input默认有个固定的宽度" />	
+		</div>
+		<div class="item">
+			<input placeholder="input默认有个固定的宽度" />	
+		</div>
+	</div>
+
+	<p style="line-height: 50px; background: yellowgreen; margin-top:50px;">
+		<span>行内元素:</span>	
+		<font style="color:red;">只占据它对应标签的边框所包含的空间。</font>
+		<span>例如:p、span、font</span>
+	</p>
+
+	<div style="line-height: 50px; background: goldenrod; margin-top:50px;">
+		<h6>块级元素:</h6>
+		<section style="color:red;">块级元素占据其父元素（容器）的整个水平空间</section>
+		<div>例如：div、section、h1 ~ h6</div>
+	</div>
+
+
+</body>  
+</html> 

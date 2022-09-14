@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <link rel="stylesheet" href="css/demo-center.css" type="text/css">
+  <style>
+    html,
+    body,
+    #container {
+      height: 100%
+    }
+
+    .btn {
+      width: 6rem;
+      margin: 0 1rem 0 2rem;
+    }
+  </style>
+  <title>鼠标工具绘制</title>
+</head>
+
+<body>
+  <div id='container'></div>
+
+  <div class="input-card" style='width: 24rem;'>
+    <div class="input-item">
+      <input type="radio" name='func' checked="" value='marker'><span class="input-text">画点</span>
+      <input type="radio" name='func' value='polyline'><span class="input-text">画折线</span>
+      <input type="radio" name='func' value='polygon'><span class="input-text" style='width:5rem;'>画多边形</span>
+    </div>
+    <div class="input-item">
+      <input type="radio" name='func' value='rectangle'><span class="input-text">画矩形</span>
+      <input type="radio" name='func' value='circle'><span class="input-text">画圆</span>
+    </div>
+    <div class="input-item">
+      <input id="clear" type="button" class="btn" value="清除所有" />
+      <input id="close" type="button" class="btn" value="关闭绘图" />
+      <input id="ktest" type="button" class="btn" value="ktest" />
+    </div>
+
+    <div class="input-item">
+      <input type="button" class="btn" value="定位到所在城市" onclick="showCityInfo()" />
+    </div>
+  </div>
+  <script type="text/javascript"
+    src="https://webapi.amap.com/maps?v=1.4.15&key=92ac962f73938a7564abf57666bbc6d1&plugin=AMap.MouseTool,AMap.CitySearch,AMap.PolyEditor"></script>
+  <script type="text/javascript">
+    let map = new AMap.Map('container', {
+      resizeEnable: true,
+      center: [116.397428, 39.90923],
+      zoom: 13
+    });
+    let mouseTool = new AMap.MouseTool(map);
+    //监听draw事件可获取画好的覆盖物
+    let overlays = [];
+    mouseTool.on('draw', function (ev) {
+      overlays.push(ev.obj);
+      console.log('draw ev', overlays)
+    })
+
+    function draw(type) {
+      switch (type) {
+        case 'marker': {
+          mouseTool.marker({
+            //同Marker的Option设置
+          });
+          break;
+        }
+        case 'polyline': {
+          mouseTool.polyline({
+            strokeColor: '#80d8ff'
+            //同Polyline的Option设置
+          });
+          break;
+        }
+        case 'polygon': {
+          mouseTool.polygon({
+            fillColor: '#00b0ff',
+            strokeColor: '#80d8ff'
+            //同Polygon的Option设置
+          });
+          break;
+        }
+        case 'rectangle': {
+          mouseTool.rectangle({
+            fillColor: '#00b0ff',
+            strokeColor: '#80d8ff'
+            //同Polygon的Option设置
+          });
+          break;
+        }
+        case 'circle': {
+          mouseTool.circle({
+            fillColor: '#00b0ff',
+            strokeColor: '#80d8ff'
+            //同Circle的Option设置
+          });
+          break;
+        }
+      }
+    }
+
+    let radios = document.getElementsByName('func');
+    for (let i = 0; i < radios.length; i += 1) {
+      radios[i].onchange = function (e) {
+        draw(e.target.value)
+      }
+    }
+    draw('marker')
+
+    document.getElementById('clear').onclick = function () {
+      map.remove(overlays)
+      overlays = [];
+    }
+    
+    document.getElementById('close').onclick = function () {
+      mouseTool.close(true)//关闭，并清除覆盖物
+      for (let i = 0; i < radios.length; i += 1) {
+        radios[i].checked = false;
+      }
+    }
+
+
+    function createCover(lngLats) {
+      let points = lngLats.split(';')
+      let linePoints = []
+      points.forEach((point) => {
+        if (point != "") {
+          let poi = point.split(",");
+          linePoints.push(poi);
+        }
+      });
+
+      let path = [];
+      for(let poi of linePoints) {
+        path.push(new AMap.LngLat(poi[0], poi[1]))
+      }
+      let faceOpt = {
+        // fillColor: '#fff', // 多边形填充颜色
+        fillColor: 'rgba(255,255,255,0.5)', // 多边形填充颜色
+
+        borderWeight: 2, // 线条宽度，默认为 1
+        strokeColor: 'red', // 线条颜色
+      }
+      let cover = new AMap.Polygon({ ...faceOpt,path })
+      return cover
+    }
+
+    let a = "113.34717,23.136275;113.349466,23.13219;113.350346,23.13661;113.348694,23.13641"
+    let b = "113.338544,23.134496;113.338859,23.133643;113.340165,23.134129;113.339701,23.13514"
+    let aa = createCover(a)
+    map.add(aa)
+    map.setFitView()
+    let editer = new AMap.PolyEditor(map, aa)
+    editer.open()
+    document.getElementById('ktest').onclick = function () {
+      map.remove(aa)
+      map.setFitView()
+    }
+
+  </script>
+
+  <script>
+    function showCityInfo() {
+      console.log('定位到所在城市')
+      //实例化城市查询类
+      let citysearch = new AMap.CitySearch();
+      //自动获取用户IP，返回当前城市
+      citysearch.getLocalCity(function (status, result) {
+        if (status === 'complete' && result.info === 'OK') {
+          if (result && result.city && result.bounds) {
+            let citybounds = result.bounds;
+            console.log('city info', result)
+            map.setBounds(citybounds);//地图显示当前城市
+          }
+        } else {
+          console.log('city info fail', result.info)
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
