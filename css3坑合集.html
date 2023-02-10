@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>css3坑合集</title>
+		<style>
+			html, body {
+				height: 100%;
+				font-size: 40px;
+			}
+			.tran-50 {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				background: #333;
+				width: 85%;
+				height: 300px;
+				color: aliceblue;
+			}
+			.tran-50__child {
+				position: fixed;
+				top: 0;
+				right:0;
+				background: rgba(255, 0, 0, 0.5);
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h3>css3坑合集</h3>
+		<div class="tran-50">
+			transform: translateY(-50%);会导致其子标签的position:fixed;失效。<br/>
+			红色透明的方块是我的子标签，它是position: fixed; top: 0; right:0; <br/>
+			然而你看它的位置。
+			<div class="tran-50__child"></div>
+		</div>
+	</body>
+</html>
+
+<!-- 
+
+## 规范
+* css 使用 BEM 约定
+
+  http://www.divcss5.com/css3-style/c56988.shtml
+```less
+// Bem是块（block）、元素（element）、修饰符（modifier）的简写
+
+// -  中划线：仅作为连字符使用，表示某个块或者某个子元素的多单词之间的连接记号。
+.el-input
+ 
+// 　__ 双下划线：双下划线用来连接块和块的子元素（块__块内元素
+.el-input__inner  
+  
+// 块--修饰符（代表不同状态或不同版本）
+.el-input--mini
+
+
+// 缺点： 这样的命名太长了~
+  
+```
+
+ -->

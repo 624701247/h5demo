@@ -1,59 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>html如何将地址、路径、支付code_url转成二维码</title>
+	</head>
+	<body>
+		<div id="myQrcode"></div>
+		<!-- <script src="https://cdn.bootcss.com/jquery/1.5.1/jquery.min.js"></script> -->
+		<!-- <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script> -->
 
-<head>
-  <title>test</title>
-  <style>
-  </style>
-  <script src="ts/out/draven.bundle.js" />
-</head>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<!-- <script>
+			jQuery('#myQrcode').qrcode({
+				text: "weixin://wxpay/bizpayurl?pr=cvlXHP9zz"
+			});
+		</script> -->
 
-<body>
-  <script>
-    //去除整个画面能滚动回弹
-    //@param bgTag : 想要设置其为不可滚动回弹的标签
-    //@param scrollTag : bgTag标签中特殊需要可滚动的标签
-    function killRollback(bgTag, scrollTag) {
-      var istTouchSv = false
-      var touchSY = 0
-      var scrollJTag = "#" + scrollTag
-      document.getElementById(bgTag).addEventListener("touchstart", function (e) {
-        if (istTouchSv) {
-          touchSY = e.touches[0].pageY;
-        }
-        else {
-          e.preventDefault();  //取消与事件关联的默认动作
-        }
-      }, false);
+		<button type="button" class="layui-btn layui-btn layui-btn-normal" id="btnJsonp">Jsonp请求</button>
 
-      document.getElementById(bgTag).addEventListener("touchmove", function (e) {
-        if (istTouchSv) {
-          if (e.touches[0].pageY > touchSY) {  //往下滑
-            if (j(scrollJTag).scrollTop() == 0) {   //滑到顶部
-              e.preventDefault();
-            }
-          }
-          else { //往上滑
-            if (j(scrollJTag)[0].scrollTop + j(scrollJTag).height() >= j(scrollJTag)[0].scrollHeight - 5) {   //滑到底部  //注意 有些设备nScrollTop不精准 （比如叫兽的小米） 所以这里  - 5
-              e.preventDefault();
-            }
-
-          }
-        }
-        else {
-          e.preventDefault();  //取消与事件关联的默认动作
-        }
-      }, false);
+		<script>
+			$('#btnJsonp').on('click', function() {
+				console.log('123123123')
+							$.ajax({
+									type: 'GET',
+									url: 'http://192.168.0.116:6666/jsonp',
+									dataType: 'jsonp',
+									jsonpCallback: 'success',
+									success: function(res) {
+											console.log(res);
+									}
+							});
+					});
+		</script>
 
 
-      document.getElementById(scrollTag).addEventListener("touchstart", function (e) {
-        istTouchSv = true
-      }, false);
-      document.getElementById(scrollTag).addEventListener("touchend", function (e) {
-        istTouchSv = false
-      }, false);
-    }
-  </script>
-</body>
-
+	</body>
 </html>
