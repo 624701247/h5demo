@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/624701247/h5demo#readme",
   "dependencies": {
-    "echarts": "^4.2.1",
+    "echarts": "^5.4.2",
     "wr": "^1.3.1"
   }
 }
